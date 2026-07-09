@@ -1,0 +1,20 @@
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="container hero-content">
+    <div class="hero-badge">
+      <span class="badge-dot"></span>
+      starpak team
+    </div>
+    <h1 class="hero-title">
+      <span class="gradient-text">spak</span>
+    </h1>
+    <p class="hero-subtitle">用代码点亮星辰 · 以热爱驱动未来</p>
+    <p class="hero-desc">一支充满活力的技术团队，专注于构建优雅、高效的数字解决方案。</p>
+    <div class="hero-actions">
+      <button class="btn btn-primary" onclick="navigate('projects')">
+        探索项目 <span class="arrow">→</span>
+      </button>
+      <button class="btn btn-secondary" onclick="navigate('about')">了解团队</button>
+    </div>
+  </div>
+</section>

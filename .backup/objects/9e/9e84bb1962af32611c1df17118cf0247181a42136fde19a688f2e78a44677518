@@ -1,0 +1,19 @@
+<div class="navbar">
+  <div class="container nav-inner">
+    <div class="nav-logo" onclick="navigate('home')">
+      <span>✦</span>
+      <span>spak</span>
+    </div>
+    <div class="nav-links">
+      <button class="nav-link active" data-route="home" onclick="navigate('home')">首页</button>
+      <button class="nav-link" data-route="projects" onclick="navigate('projects')">项目</button>
+      <button class="nav-link" data-route="about" onclick="navigate('about')">关于</button>
+    </div>
+  </div>
+</div>
+<script>
+// 初始化主题（跟随系统）
+if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+  document.documentElement.classList.add('dark')
+}
+</script>

@@ -1,0 +1,44 @@
+/* ===== 主题切换样式 ===== */
+
+/* 手动切换主题按钮 */
+.theme-toggle {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--md-shape-full);
+  border: 1px solid var(--md-outline-variant);
+  background: var(--md-surface-container);
+  color: var(--md-on-surface-variant);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  transition: all .2s;
+}
+.theme-toggle:hover {
+  background: var(--md-surface-container-high);
+  border-color: var(--md-primary);
+}
+
+/* 亮色主题下隐藏月亮，暗色主题下隐藏太阳 */
+html:not(.dark) .theme-moon,
+html.dark .theme-sun {
+  display: none;
+}
+
+/* 主题过渡 */
+html {
+  transition: background-color .3s, color .3s;
+}
+html * {
+  transition: background-color .3s, border-color .3s, box-shadow .3s;
+}
+
+/* 滚动条主题 */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: var(--md-surface-container-low); }
+::-webkit-scrollbar-thumb {
+  background: var(--md-outline-variant);
+  border-radius: var(--md-shape-full);
+}
+::-webkit-scrollbar-thumb:hover { background: var(--md-outline); }

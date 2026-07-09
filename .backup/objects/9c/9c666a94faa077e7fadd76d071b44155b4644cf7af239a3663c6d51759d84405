@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>spak — starpak team</title>
+  <link rel="icon" type="image/svg+xml" href="assets/spak.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/animations.css">
+  <link rel="stylesheet" href="css/themes.css">
+</head>
+<body>
+  <div id="app">
+    <div class="loading-screen">
+      <div class="loading-spinner"></div>
+      <p>✦ spak</p>
+    </div>
+  </div>
+
+  <script>
+    // ===== 岛屿加载器 =====
+    const islands = [
+      { id: 'navbar',  file: 'islands/navbar.html' },
+      { id: 'hero',    file: 'islands/hero.html' },
+      { id: 'features',file: 'islands/features.html' },
+      { id: 'projects',file: 'islands/projects.html' },
+      { id: 'about',   file: 'islands/about.html' },
+      { id: 'footer',  file: 'islands/footer.html' },
+    ]
+
+    async function loadIslands() {
+      const app = document.getElementById('app')
+      app.innerHTML = ''
+
+      for (const island of islands) {
+        try {
+          const res = await fetch(island.file)
+          const html = await res.text()
+          const section = document.createElement('div')
+          section.id = island.id
+          section.innerHTML = html
+          app.appendChild(section)
+
+          // 执行岛屿里的脚本
+          section.querySelectorAll('script').forEach(oldScript => {
+            const newScript = document.createElement('script')
+            Array.from(oldScript.attributes).forEach(attr => {
+              newScript.setAttribute(attr.name, attr.value)
+            })
+            newScript.textContent = oldScript.textContent
+            oldScript.parentNode.replaceChild(newScript, oldScript)
+          })
+        } catch (e) {
+          console.warn(`岛屿 ${island.file} 加载失败:`, e)
+        }
+      }
+
+      // 加载完成后触发自定义事件
+      document.dispatchEvent(new Event('islands-loaded'))
+    }
+
+    // ===== 路由系统 =====
+    // 每个路由定义要显示的岛屿（navbar和footer始终显示）
+    const routes = {
+      home: ['hero', 'features', 'projects'],
+      projects: ['project-list'],
+      about: ['about-page'],
+    }
+
+    let currentRoute = 'home'
+
+    function navigate(route) {
+      currentRoute = route
+      const show = routes[route] || routes.home
+      document.querySelectorAll('[id^="island-"]').forEach(el => {
+        const name = el.id.replace('island-', '')
+        el.style.display = show.includes(name) ? '' : 'none'
+      })
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+    }
+
+    document.addEventListener('islands-loaded', () => {
+      // 给所有岛屿包裹层加id标识
+      document.querySelectorAll('#app > div').forEach(el => {
+        el.id = 'island-' + el.id
+      })
+      navigate(currentRoute)
+    })
+
+    loadIslands()
+  </script>
+</body>
+</html>

@@ -1,0 +1,15 @@
+<section class="section" style="padding-bottom:120px">
+  <div class="container">
+    <div class="domain-card">
+      <div class="domain-glow"></div>
+      <div class="domain-content">
+        <span class="domain-label">我们的主域名</span>
+        <h2 class="domain-name">spak.top</h2>
+        <p class="domain-desc">简洁有力，正如我们的代码</p>
+        <a href="https://spak.top" target="_blank" rel="noopener" class="btn btn-primary">
+          访问 spak.top <span class="arrow">→</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>

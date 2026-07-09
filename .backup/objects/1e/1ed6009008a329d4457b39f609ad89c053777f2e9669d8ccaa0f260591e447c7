@@ -1,0 +1,90 @@
+/* ===== 动画样式 ===== */
+
+/* 加载旋转 */
+.loading-spinner {
+  animation: spin .8s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* 脉冲点 */
+.badge-dot {
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+@keyframes pulse-dot { 0%,100% { opacity: 1; } 50% { opacity: .4; } }
+
+/* 按钮箭头动画 */
+.btn .arrow { display: inline-block; transition: transform .2s; }
+.btn:hover .arrow { transform: translateX(4px); }
+
+/* 星星闪烁 */
+.star {
+  position: absolute; width: 3px; height: 3px;
+  background: var(--md-primary); border-radius: 50%;
+  animation: twinkle var(--dur,3s) ease-in-out infinite alternate;
+  opacity: 0;
+}
+@keyframes twinkle { 0%{opacity:0;transform:scale(0)} 50%{opacity:.8;transform:scale(1)} 100%{opacity:.2;transform:scale(.5)} }
+
+/* 光晕脉冲 */
+.hero-glow-ring {
+  position: absolute; border-radius: 50%;
+  border: 1px solid var(--md-primary-container);
+  animation: ring-expand 4s ease-out infinite;
+  opacity: 0; pointer-events: none;
+}
+@keyframes ring-expand { 0%{width:0;height:0;opacity:.6} 100%{width:600px;height:600px;opacity:0} }
+
+/* ===== Hero 入场动画 ===== */
+.hero-title { animation: hero-glow 3s ease-in-out infinite alternate; }
+@keyframes hero-glow { from{filter:brightness(1)} to{filter:brightness(1.2)} }
+.hero-subtitle { animation: float-up .8s cubic-bezier(.4,0,.2,1) .3s both; }
+@keyframes float-up { from{opacity:0;transform:translateY(24px) scale(.98);filter:blur(6px)} to{opacity:1;transform:translateY(0) scale(1);filter:blur(0)} }
+.hero-desc { animation: fade-in 1s ease-out .5s both; }
+.hero-actions { animation: fade-in 1s ease-out .7s both; }
+.hero-badge { animation: fade-in .5s ease-out both; }
+
+@keyframes fade-in { from{opacity:0} to{opacity:1} }
+
+/* 域名光晕 */
+.domain-glow { animation: breathe 4s ease-in-out infinite; }
+@keyframes breathe { 0%,100%{opacity:.1;transform:translateX(-50%) scale(1)} 50%{opacity:.25;transform:translateX(-50%) scale(1.1)} }
+
+/* 页面切换淡入 */
+.island-enter { animation: fade-in .3s ease-out; }
+
+/* ========================================
+   滚动触发动画
+   进入视口 -> 入场，离开视口 -> 出场
+   ======================================== */
+
+.scroll-animate {
+  opacity: 0;
+  transition: opacity .6s ease-out, transform .6s cubic-bezier(.4,0,.2,1);
+}
+
+/* 从下往上 */
+.scroll-animate.scroll-up { transform: translateY(40px); }
+.scroll-animate.scroll-up.visible { opacity: 1; transform: translateY(0); }
+.scroll-animate.scroll-up.exit { opacity: 0; transform: translateY(-30px); }
+
+/* 从左往右 */
+.scroll-animate.scroll-left { transform: translateX(-40px); }
+.scroll-animate.scroll-left.visible { opacity: 1; transform: translateX(0); }
+.scroll-animate.scroll-left.exit { opacity: 0; transform: translateX(30px); }
+
+/* 从右往左 */
+.scroll-animate.scroll-right { transform: translateX(40px); }
+.scroll-animate.scroll-right.visible { opacity: 1; transform: translateX(0); }
+.scroll-animate.scroll-right.exit { opacity: 0; transform: translateX(-30px); }
+
+/* 缩放 */
+.scroll-animate.scroll-scale { transform: scale(.9); }
+.scroll-animate.scroll-scale.visible { opacity: 1; transform: scale(1); }
+.scroll-animate.scroll-scale.exit { opacity: 0; transform: scale(.8); }
+
+/* 子元素依次延迟 */
+.scroll-animate:nth-child(2) { transition-delay: .1s; }
+.scroll-animate:nth-child(3) { transition-delay: .2s; }
+.scroll-animate:nth-child(4) { transition-delay: .3s; }
+.scroll-animate:nth-child(5) { transition-delay: .4s; }
+.scroll-animate:nth-child(6) { transition-delay: .5s; }

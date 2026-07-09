@@ -1,0 +1,33 @@
+<section class="section page-header">
+  <div class="container">
+    <h1 class="section-title">我们的 <em class="gradient-text" style="font-style:normal">项目</em></h1>
+    <p class="section-desc">用代码创造价值，让每一行都闪耀</p>
+  </div>
+</section>
+
+<section class="section" style="padding-top:0">
+  <div class="container">
+    <div class="grid-auto">
+      <div class="card">
+        <div class="card-icon" style="background:var(--md-primary-container)">⭐</div>
+        <h3>StarTool</h3>
+        <p>一款现代化系统监控工具，提供实时状态概览与性能指标追踪。</p>
+        <div class="tags" style="margin-top:16px">
+          <span class="tag" style="background:var(--md-tertiary-container);color:var(--md-on-tertiary-container)">实验性</span>
+          <span class="tag">Vue 3</span>
+          <span class="tag">Node.js</span>
+          <span class="tag">MD3</span>
+        </div>
+        <div style="margin-top:16px">
+          <a href="https://github.com/starlight-apk" target="_blank" rel="noopener" style="font:500 14px/20px 'Inter',sans-serif;color:var(--md-primary)">GitHub →</a>
+        </div>
+      </div>
+
+      <div class="card" style="opacity:.6;border-style:dashed;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;min-height:200px">
+        <div style="font-size:28px;margin-bottom:12px">✨</div>
+        <h3>更多项目准备中</h3>
+        <p>持续创新，敬请期待</p>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,184 @@
+/* ===== 动画样式 ===== */
+
+/* 加载旋转 */
+.loading-spinner {
+  animation: spin .8s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* 脉冲点 */
+.badge-dot {
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+@keyframes pulse-dot { 0%,100% { opacity: 1; } 50% { opacity: .4; } }
+
+/* 按钮箭头动画 */
+.btn .arrow { display: inline-block; transition: transform .2s; }
+.btn:hover .arrow { transform: translateX(4px); }
+
+/* 星星闪烁 */
+.star {
+  position: absolute; width: 3px; height: 3px;
+  background: var(--md-primary); border-radius: 50%;
+  animation: twinkle var(--dur,3s) ease-in-out infinite alternate;
+  opacity: 0;
+}
+@keyframes twinkle { 0%{opacity:0;transform:scale(0)} 50%{opacity:.8;transform:scale(1)} 100%{opacity:.2;transform:scale(.5)} }
+
+/* 光晕脉冲 */
+.hero-glow-ring {
+  position: absolute; border-radius: 50%;
+  border: 1px solid var(--md-primary-container);
+  animation: ring-expand 4s ease-out infinite;
+  opacity: 0; pointer-events: none;
+}
+@keyframes ring-expand { 0%{width:0;height:0;opacity:.6} 100%{width:600px;height:600px;opacity:0} }
+
+/* ========================================
+   阶段动画系统
+   一阶：内容紧凑居中淡入
+   二阶：一阶完成后重新布局
+   ======================================== */
+
+/* ----- 一阶动画 ----- */
+
+/* 初始态：所有section内容居中紧凑 */
+.section-content {
+  transition: all .6s cubic-bezier(.4,0,.2,1);
+}
+
+/* 一阶：淡入 */
+.stage-first .section-content,
+.stage-first .hero-content {
+  animation: stage-first-enter .8s cubic-bezier(.4,0,.2,1) both;
+}
+@keyframes stage-first-enter {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ----- 二阶动画 ----- */
+
+/* 二阶触发：hero内容左对齐 + 右侧出现装饰 */
+.stage-second .hero-content {
+  text-align: left;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: center;
+}
+.stage-second .hero-content > .hero-text-col {
+  grid-column: 1;
+}
+.stage-second .hero-content > .hero-deco-col {
+  grid-column: 2;
+  opacity: 0;
+  animation: deco-slide-in .6s cubic-bezier(.4,0,.2,1) .2s both;
+}
+@keyframes deco-slide-in {
+  from { opacity: 0; transform: translateX(40px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+/* 二阶：卡片区从grid-2变成左对齐列表 */
+.stage-second .grid-2 {
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 16px;
+}
+.stage-second .grid-2 .card {
+  animation: card-shrink .5s cubic-bezier(.4,0,.2,1) both;
+}
+.stage-second .grid-2 .card:nth-child(1) { animation-delay: 0s; }
+.stage-second .grid-2 .card:nth-child(2) { animation-delay: .1s; }
+.stage-second .grid-2 .card:nth-child(3) { animation-delay: .2s; }
+.stage-second .grid-2 .card:nth-child(4) { animation-delay: .3s; }
+@keyframes card-shrink {
+  from { transform: scale(1); opacity: 1; }
+  to { transform: scale(.92); opacity: .6; }
+}
+
+/* 二阶：统计卡片区变成横向滚动条 */
+.stage-second .grid-3 {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding-bottom: 8px;
+}
+.stage-second .grid-3 .card {
+  flex: 0 0 200px;
+  scroll-snap-align: start;
+  animation: card-slide-in .5s cubic-bezier(.4,0,.2,1) both;
+}
+.stage-second .grid-3 .card:nth-child(1) { animation-delay: 0s; }
+.stage-second .grid-3 .card:nth-child(2) { animation-delay: .1s; }
+.stage-second .grid-3 .card:nth-child(3) { animation-delay: .2s; }
+@keyframes card-slide-in {
+  from { opacity: 0; transform: translateX(30px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+/* ----- 阶段切换控制 ----- */
+.stage-first .section-content,
+.stage-first .hero-content,
+.stage-first .grid-2,
+.stage-first .grid-3,
+.stage-first .card {
+  transition: all .6s cubic-bezier(.4,0,.2,1);
+}
+.stage-second .section-content,
+.stage-second .hero-content,
+.stage-second .grid-2,
+.stage-second .grid-3,
+.stage-second .card {
+  transition: all .6s cubic-bezier(.4,0,.2,1);
+}
+
+/* 淡入通用 */
+@keyframes fade-in { from{opacity:0} to{opacity:1} }
+
+/* 域名光晕 */
+.domain-glow {
+  animation: breathe 4s ease-in-out infinite;
+}
+@keyframes breathe { 0%,100%{opacity:.1;transform:translateX(-50%) scale(1)} 50%{opacity:.25;transform:translateX(-50%) scale(1.1)} }
+
+/* 页面切换淡入 */
+.island-enter { animation: fade-in .3s ease-out; }
+
+/* ===== Hero 一阶动画 ===== */
+.hero-title { animation: hero-glow 3s ease-in-out infinite alternate; }
+@keyframes hero-glow { from{filter:brightness(1)} to{filter:brightness(1.2)} }
+.hero-subtitle { animation: float-up .8s cubic-bezier(.4,0,.2,1) .3s both; }
+@keyframes float-up { from{opacity:0;transform:translateY(24px) scale(.98);filter:blur(6px)} to{opacity:1;transform:translateY(0) scale(1);filter:blur(0)} }
+.hero-desc { animation: fade-in 1s ease-out .5s both; }
+.hero-actions { animation: fade-in 1s ease-out .7s both; }
+.hero-badge { animation: fade-in .5s ease-out both; }
+
+/* 二阶hero装饰块 */
+.hero-deco-col {
+  display: none;
+}
+.stage-second .hero-deco-col {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.hero-deco-item {
+  padding: 20px 24px;
+  border-radius: var(--md-shape-lg);
+  background: color-mix(in srgb, var(--md-surface-container) 70%, transparent);
+  backdrop-filter: blur(12px);
+  border: 1px solid color-mix(in srgb, var(--md-outline-variant) 50%, transparent);
+}
+.hero-deco-item .deco-label {
+  font: 500 11px/16px 'Inter',sans-serif;
+  color: var(--md-outline);
+  text-transform: uppercase;
+  letter-spacing: .5px;
+  margin-bottom: 4px;
+}
+.hero-deco-item .deco-value {
+  font: 600 18px/24px 'Inter',sans-serif;
+  color: var(--md-on-surface);
+}

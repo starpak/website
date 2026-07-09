@@ -1,0 +1,43 @@
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-particles" id="hero-particles"></div>
+  <div class="hero-glow-ring" style="top:20%;left:30%"></div>
+  <div class="hero-glow-ring" style="top:60%;left:70%;animation-delay:2s"></div>
+  <div class="hero-glow-ring" style="top:30%;left:80%;animation-delay:4s"></div>
+  <div class="container hero-content">
+    <div class="hero-badge">
+      <span class="badge-dot"></span>
+      starpak team
+    </div>
+    <h1 class="hero-title">
+      <span class="gradient-text">spak</span>
+    </h1>
+    <p class="hero-subtitle">✦ 用代码点亮星辰 · 以热爱驱动未来 ✦</p>
+    <p class="hero-desc">一支充满活力的技术团队，专注于构建优雅、高效的数字解决方案。</p>
+    <div class="hero-actions">
+      <button class="btn btn-primary" onclick="navigate('projects')">
+        探索项目 <span class="arrow">→</span>
+      </button>
+      <button class="btn btn-secondary" onclick="navigate('about')">了解团队</button>
+    </div>
+  </div>
+</section>
+<script>
+// 生成星星粒子
+;(function() {
+  const container = document.getElementById('hero-particles')
+  if (!container) return
+  const count = 60
+  for (let i = 0; i < count; i++) {
+    const star = document.createElement('div')
+    star.className = 'star'
+    star.style.left = Math.random() * 100 + '%'
+    star.style.top = Math.random() * 100 + '%'
+    star.style.setProperty('--dur', (2 + Math.random() * 4) + 's')
+    star.style.animationDelay = Math.random() * 5 + 's'
+    star.style.width = (2 + Math.random() * 3) + 'px'
+    star.style.height = star.style.width
+    container.appendChild(star)
+  }
+})()
+</script>

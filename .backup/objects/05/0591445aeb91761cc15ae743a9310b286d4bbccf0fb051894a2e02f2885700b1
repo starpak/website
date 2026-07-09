@@ -1,0 +1,15 @@
+<section class="section" style="padding-bottom:120px">
+  <div class="container">
+    <div class="domain-card">
+      <div class="domain-glow"></div>
+      <div class="domain-content">
+        <span class="domain-label">我们的主域名</span>
+        <h2 class="domain-name">spak.top</h2>
+        <p class="domain-desc">这就是你正在访问的网站 · 用代码点亮星辰</p>
+        <button class="btn btn-primary" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+          回到首页 <span class="arrow">↑</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>

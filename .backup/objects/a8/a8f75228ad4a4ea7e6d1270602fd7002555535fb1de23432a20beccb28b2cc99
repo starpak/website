@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>spak — starpak team</title>
+  <link rel="icon" type="image/svg+xml" href="assets/spak.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,0..200" rel="stylesheet">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/animations.css">
+  <link rel="stylesheet" href="css/themes.css">
+</head>
+<body>
+  <div id="app">
+    <div class="loading-screen">
+      <div class="loading-spinner"></div>
+      <p>✦ spak</p>
+    </div>
+  </div>
+
+  <script>
+    // ===== 岛屿配置 =====
+    const islands = [
+      { id: 'navbar',  file: 'islands/navbar.html' },
+      { id: 'hero',    file: 'islands/hero.html' },
+      { id: 'features',file: 'islands/features.html' },
+      { id: 'projects',file: 'islands/projects.html' },
+      { id: 'project-list',file: 'islands/project-list.html' },
+      { id: 'about-page',file: 'islands/about-page.html' },
+      { id: 'footer',  file: 'islands/footer.html' },
+    ]
+
+    // ===== 页面定义 =====
+    const pages = {
+      home:     { show: ['hero', 'features', 'projects'], hash: '' },
+      projects: { show: ['project-list'], hash: 'projects' },
+      about:    { show: ['about-page'], hash: 'about' },
+    }
+
+    function getPageFromHash() {
+      const hash = window.location.hash.replace('#/', '').replace('#', '')
+      if (hash === 'projects') return 'projects'
+      if (hash === 'about') return 'about'
+      return 'home'
+    }
+
+    function navigate(page) {
+      const config = pages[page] || pages.home
+
+      // 更新URL hash（不重复触发）
+      const targetHash = config.hash
+      const currentHash = window.location.hash.replace('#', '')
+      if (targetHash !== currentHash) {
+        window.location.hash = targetHash ? '#/' + targetHash : '#/'
+      }
+
+      // 更新导航激活态
+      document.querySelectorAll('.nav-link').forEach(btn => {
+        const p = btn.getAttribute('data-page')
+        btn.classList.toggle('active', p === page)
+      })
+
+      // 切换岛屿显隐
+      document.querySelectorAll('#app > .island-wrap').forEach(wrap => {
+        const name = wrap.dataset.island
+        if (name === 'navbar' || name === 'footer') {
+          wrap.style.display = ''
+          return
+        }
+        wrap.style.display = config.show.includes(name) ? '' : 'none'
+      })
+
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+    }
+
+    // 监听hash变化
+    window.addEventListener('hashchange', () => {
+      const page = getPageFromHash()
+      // 直接切换显示，不修改hash避免循环
+      const config = pages[page] || pages.home
+      document.querySelectorAll('.nav-link').forEach(btn => {
+        const p = btn.getAttribute('data-page')
+        btn.classList.toggle('active', p === page)
+      })
+      document.querySelectorAll('#app > .island-wrap').forEach(wrap => {
+        const name = wrap.dataset.island
+        if (name === 'navbar' || name === 'footer') {
+          wrap.style.display = ''
+          return
+        }
+        wrap.style.display = config.show.includes(name) ? '' : 'none'
+      })
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+    })
+
+    // 暴露给岛屿内的 onclick
+    window.navigate = navigate
+
+    // ===== 加载所有岛屿 =====
+    async function loadIslands() {
+      const app = document.getElementById('app')
+      app.innerHTML = ''
+
+      for (const item of islands) {
+        try {
+          const res = await fetch(item.file)
+          const html = await res.text()
+          const wrap = document.createElement('div')
+          wrap.className = 'island-wrap'
+          wrap.dataset.island = item.id
+          wrap.innerHTML = html
+          app.appendChild(wrap)
+
+          // 重新执行 script
+          wrap.querySelectorAll('script').forEach(oldScript => {
+            const ns = document.createElement('script')
+            Array.from(oldScript.attributes).forEach(a => ns.setAttribute(a.name, a.value))
+            ns.textContent = oldScript.textContent
+            oldScript.parentNode.replaceChild(ns, oldScript)
+          })
+        } catch (e) {
+          console.warn('岛屿加载失败:', item.file, e)
+        }
+      }
+
+      // 加载完成后：添加滚动观察者
+      initScrollAnimation()
+
+      // 根据hash初始化导航
+      navigate(getPageFromHash())
+    }
+
+    // ===== 滚动触发动画（Intersection Observer） =====
+    function initScrollAnimation() {
+      // 给所有卡片添加动画类
+      document.querySelectorAll('.card, .section, .about-card, .domain-card').forEach(el => {
+        if (!el.classList.contains('scroll-animate')) {
+          el.classList.add('scroll-animate', 'scroll-up')
+        }
+      })
+
+      // 给hero-deco-item加从右滑入
+      document.querySelectorAll('.hero-deco-item').forEach(el => {
+        el.classList.add('scroll-animate', 'scroll-right')
+      })
+
+      // 创建观察者
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            // 进入视口 -> 入场
+            entry.target.classList.remove('exit')
+            entry.target.classList.add('visible')
+          } else {
+            // 离开视口 -> 出场
+            entry.target.classList.remove('visible')
+            entry.target.classList.add('exit')
+          }
+        })
+      }, {
+        threshold: 0.15,
+        rootMargin: '0px 0px -50px 0px'
+      })
+
+      // 观察所有动画元素
+      document.querySelectorAll('.scroll-animate').forEach(el => observer.observe(el))
+    }
+
+    loadIslands()
+  </script>
+</body>
+</html>

@@ -1,0 +1,18 @@
+<section class="section" style="padding-top:0">
+  <div class="container">
+    <div class="grid-3" style="text-align:center">
+      <div class="card" style="padding:32px 24px;text-align:center">
+        <div style="font:800 45px/52px 'Inter',sans-serif;margin-bottom:8px" class="gradient-text">2026</div>
+        <p style="font:400 16px/24px 'Inter',sans-serif;color:var(--md-on-surface-variant)">成立年份</p>
+      </div>
+      <div class="card" style="padding:32px 24px;text-align:center">
+        <div style="font:800 45px/52px 'Inter',sans-serif;margin-bottom:8px" class="gradient-text">✦</div>
+        <p style="font:400 16px/24px 'Inter',sans-serif;color:var(--md-on-surface-variant)">域名 spak.top</p>
+      </div>
+      <div class="card" style="padding:32px 24px;text-align:center">
+        <div style="font:800 45px/52px 'Inter',sans-serif;margin-bottom:8px" class="gradient-text">∞</div>
+        <p style="font:400 16px/24px 'Inter',sans-serif;color:var(--md-on-surface-variant)">无限可能</p>
+      </div>
+    </div>
+  </div>
+</section>
