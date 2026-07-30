@@ -1,32 +1,203 @@
 <section class="section page-header">
   <div class="container">
-    <h1 class="section-title">我们的 <em class="gradient-text" style="font-style:normal">项目</em></h1>
-    <p class="section-desc">用代码创造价值，让每一行都闪耀</p>
+    <p class="section-kicker reveal" style="text-align:center">
+      <span class="en">Ecosystem</span>
+      <span class="zh">生态系统</span>
+    </p>
+    <h1 class="section-title reveal" style="text-align:center">
+      <span class="en">Projects & Modules</span>
+      <span class="zh">项目与模块</span>
+    </h1>
+    <p class="section-desc reveal">
+      <span class="en">Core packages and plugins that power the Spak OS.</span>
+      <span class="zh">驱动 Spak 操作系统的核心包与插件。</span>
+    </p>
   </div>
 </section>
 
 <section class="section" style="padding-top:0">
   <div class="container">
-    <div class="grid-auto">
-      <div class="card">
-        <div class="card-icon" style="background:var(--md-primary-container)"><span class="material-symbols-outlined" style="font-size:24px">star</span></div>
-        <h3>StarTool</h3>
-        <p>一款现代化系统监控工具，提供实时状态概览与性能指标追踪。</p>
-        <div class="tags" style="margin-top:16px">
-          <span class="tag" style="background:var(--md-tertiary-container);color:var(--md-on-tertiary-container)">实验性</span>
-          <span class="tag">Vue 3</span>
-          <span class="tag">Node.js</span>
-          <span class="tag">MD3</span>
+    <!-- Core Packages -->
+    <div style="margin-bottom:32px">
+      <h3 class="reveal" style="font:600 18px/26px 'Inter',sans-serif;margin-bottom:20px;color:var(--spak-ink-2);letter-spacing:.08em;text-transform:uppercase">
+        <span class="en">Core Packages</span>
+        <span class="zh">核心包</span>
+      </h3>
+    </div>
+    <div class="grid-auto" style="margin-bottom:80px">
+      <div class="card reveal">
+        <div class="card-icon"><span class="material-symbols-outlined">brain</span></div>
+        <h3>@spakjs/core</h3>
+        <p>
+          <span class="en">Framework core: commands, middleware, i18n, permissions, schemas, session management.</span>
+          <span class="zh">框架核心：命令、中间件、国际化、权限、Schema、会话管理。</span>
+        </p>
+        <div class="tags">
+          <span class="tag">Command</span>
+          <span class="tag">Middleware</span>
+          <span class="tag">Session</span>
         </div>
-        <div style="margin-top:16px">
-          <a href="https://github.com/starlight-apk" target="_blank" rel="noopener" style="font:500 14px/20px 'Inter',sans-serif;color:var(--md-primary)">GitHub →</a>
-        </div>
+        <a href="https://github.com/starpak/spak/tree/main/packages/core" target="_blank" rel="noopener noreferrer" style="font:500 14px/20px 'Inter',sans-serif">GitHub →</a>
       </div>
 
-      <div class="card" style="opacity:.6;border-style:dashed;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;min-height:200px">
-        <span class="material-symbols-outlined" style="font-size:36px;color:var(--md-on-surface-variant);margin-bottom:12px">auto_awesome</span>
-        <h3>更多项目准备中</h3>
-        <p>持续创新，敬请期待</p>
+      <div class="card reveal">
+        <div class="card-icon"><span class="material-symbols-outlined">gamepad</span></div>
+        <h3>@spakjs/cli</h3>
+        <p>
+          <span class="en">CLI entry point: `spak serve`, `spak config`, `spak cpc`, `spak status`. All outputs are colorized and human-friendly.</span>
+          <span class="zh">命令行入口：`spak serve`、`spak config`、`spak cpc`、`spak status`，全彩色人类友好输出。</span>
+        </p>
+        <div class="tags">
+          <span class="tag">CLI</span>
+          <span class="tag">TypeScript</span>
+        </div>
+        <a href="https://github.com/starpak/spak/tree/main/packages/spak-cli" target="_blank" rel="noopener noreferrer" style="font:500 14px/20px 'Inter',sans-serif">GitHub →</a>
+      </div>
+
+      <div class="card reveal">
+        <div class="card-icon"><span class="material-symbols-outlined">folder_open</span></div>
+        <h3>@spakjs/loader</h3>
+        <p>
+          <span class="en">Config loader supporting YAML/JSON. Handles env files, plugin resolution and lifecycle.</span>
+          <span class="zh">配置加载器，支持 YAML/JSON，处理环境变量、插件解析与生命周期。</span>
+        </p>
+        <div class="tags">
+          <span class="tag">YAML</span>
+          <span class="tag">Plugin</span>
+        </div>
+        <a href="https://github.com/starpak/spak/tree/main/packages/loader" target="_blank" rel="noopener noreferrer" style="font:500 14px/20px 'Inter',sans-serif">GitHub →</a>
+      </div>
+
+      <div class="card reveal">
+        <div class="card-icon"><span class="material-symbols-outlined">settings</span></div>
+        <h3>@spakjs/config</h3>
+        <p>
+          <span class="en">Central configuration manager, persists to `~/.spak/config.json`.</span>
+          <span class="zh">中央配置管理器，持久化到 `~/.spak/config.json`。</span>
+        </p>
+        <div class="tags">
+          <span class="tag">Config</span>
+          <span class="tag">Persist</span>
+        </div>
+        <a href="https://github.com/starpak/spak/tree/main/packages/config" target="_blank" rel="noopener noreferrer" style="font:500 14px/20px 'Inter',sans-serif">GitHub →</a>
+      </div>
+
+      <div class="card reveal">
+        <div class="card-icon"><span class="material-symbols-outlined">translate</span></div>
+        <h3>@spakjs/i18n</h3>
+        <p>
+          <span class="en">Integrated i18n: locale tree, fallback algorithm, yml translation loader, `T()` helper.</span>
+          <span class="zh">集成国际化：语言树、回退算法、YML 翻译加载器与 `T()` 助手。</span>
+        </p>
+        <div class="tags">
+          <span class="tag">i18n</span>
+          <span class="tag">YML</span>
+        </div>
+        <a href="https://github.com/starpak/spak/tree/main/packages/i18n" target="_blank" rel="noopener noreferrer" style="font:500 14px/20px 'Inter',sans-serif">GitHub →</a>
+      </div>
+
+      <div class="card reveal">
+        <div class="card-icon"><span class="material-symbols-outlined">receipt_long</span></div>
+        <h3>@spakjs/log</h3>
+        <p>
+          <span class="en">Independent multi-transport logger (Console / File / Stream) with Cordis Logger bridge.</span>
+          <span class="zh">独立多通道日志（控制台/文件/流），内置 Cordis Logger 桥接。</span>
+        </p>
+        <div class="tags">
+          <span class="tag">Logging</span>
+          <span class="tag">Multi-transport</span>
+        </div>
+        <a href="https://github.com/starpak/spak/tree/main/packages/log" target="_blank" rel="noopener noreferrer" style="font:500 14px/20px 'Inter',sans-serif">GitHub →</a>
+      </div>
+
+      <div class="card reveal">
+        <div class="card-icon"><span class="material-symbols-outlined">chat</span></div>
+        <h3>@spakjs/message</h3>
+        <p>
+          <span class="en">Message helpers and element utilities for rich text composition.</span>
+          <span class="zh">消息助手与富文本元素工具集。</span>
+        </p>
+        <div class="tags">
+          <span class="tag">Message</span>
+        </div>
+        <a href="https://github.com/starpak/spak/tree/main/packages/message" target="_blank" rel="noopener noreferrer" style="font:500 14px/20px 'Inter',sans-serif">GitHub →</a>
+      </div>
+
+      <div class="card reveal">
+        <div class="card-icon"><span class="material-symbols-outlined">handyman</span></div>
+        <h3>@spakjs/util</h3>
+        <p>
+          <span class="en">Utility functions: command declarations, object observation, string interpolation, misc helpers.</span>
+          <span class="zh">工具函数库：命令声明、对象观察、字符串插值及其他助手。</span>
+        </p>
+        <div class="tags">
+          <span class="tag">Utilities</span>
+          <span class="tag">Helpers</span>
+        </div>
+        <a href="https://github.com/starpak/spak/tree/main/packages/util" target="_blank" rel="noopener noreferrer" style="font:500 14px/20px 'Inter',sans-serif">GitHub →</a>
+      </div>
+    </div>
+
+    <!-- Plugins -->
+    <div style="margin-bottom:32px">
+      <h3 class="reveal" style="font:600 18px/26px 'Inter',sans-serif;margin-bottom:20px;color:var(--spak-ink-2);letter-spacing:.08em;text-transform:uppercase">
+        <span class="en">Official Plugins</span>
+        <span class="zh">官方插件</span>
+      </h3>
+    </div>
+    <div class="grid-auto">
+      <div class="card reveal">
+        <div class="card-icon"><span class="material-symbols-outlined">dns</span></div>
+        <h3>@spakjs/plugin-server</h3>
+        <p>
+          <span class="en">Server service and routing (HTTP / Socket) with native stack integration.</span>
+          <span class="zh">服务器服务与路由（HTTP/Socket），深度集成原生栈。</span>
+        </p>
+        <div class="tags">
+          <span class="tag" style="background:var(--md-tertiary-container);color:var(--md-on-tertiary-container)">HTTP</span>
+          <span class="tag">WebSocket</span>
+        </div>
+        <a href="https://github.com/starpak/spak/tree/main/plugins/server" target="_blank" rel="noopener noreferrer" style="font:500 14px/20px 'Inter',sans-serif">GitHub →</a>
+      </div>
+
+      <div class="card reveal">
+        <div class="card-icon"><span class="material-symbols-outlined">public</span></div>
+        <h3>@spakjs/plugin-http</h3>
+        <p>
+          <span class="en">HTTP and WebSocket client with robust timeout and retries.</span>
+          <span class="zh">HTTP 与 WebSocket 客户端，支持超时与重试。</span>
+        </p>
+        <div class="tags">
+          <span class="tag">Client</span>
+        </div>
+        <a href="https://github.com/starpak/spak/tree/main/plugins/http" target="_blank" rel="noopener noreferrer" style="font:500 14px/20px 'Inter',sans-serif">GitHub →</a>
+      </div>
+
+      <div class="card reveal">
+        <div class="card-icon"><span class="material-symbols-outlined">local_fire_department</span></div>
+        <h3>@spakjs/plugin-hmr</h3>
+        <p>
+          <span class="en">Hot Module Replacement plugin for fast development iteration.</span>
+          <span class="zh">热模块替换插件，支持快速开发迭代。</span>
+        </p>
+        <div class="tags">
+          <span class="tag" style="background:var(--md-tertiary-container);color:var(--md-on-tertiary-container)">DevTool</span>
+          <span class="tag">HMR</span>
+        </div>
+        <a href="https://github.com/starpak/spak/tree/main/plugins/hmr" target="_blank" rel="noopener noreferrer" style="font:500 14px/20px 'Inter',sans-serif">GitHub →</a>
+      </div>
+
+      <div class="card reveal">
+        <div class="card-icon"><span class="material-symbols-outlined">skull</span></div>
+        <h3>@spakjs/plugin-daemon</h3>
+        <p>
+          <span class="en">Background daemon process — routes logs to file, detaches from terminal.</span>
+          <span class="zh">后台守护进程——将日志路由到文件，脱离终端运行。</span>
+        </p>
+        <div class="tags">
+          <span class="tag">Daemon</span>
+        </div>
+        <a href="https://github.com/starpak/spak/tree/main/plugins/daemon" target="_blank" rel="noopener noreferrer" style="font:500 14px/20px 'Inter',sans-serif">GitHub →</a>
       </div>
     </div>
   </div>

@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en" class="dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <title>spak — starpak team</title>
+  <title>Spak — Native OS for the Open Economy</title>
   <link rel="icon" type="image/svg+xml" href="assets/spak.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,78 +14,101 @@
   <link rel="stylesheet" href="css/animations.css">
   <link rel="stylesheet" href="css/themes.css">
 </head>
-<body>
+<body class="lang-en">
   <div id="app">
-    <div class="loading-screen">
-      <div class="loading-spinner"></div>
-      <p>✦ spak</p>
+    <!-- Cinematic Loader (shown until islands load + animation ticks) -->
+    <div id="loader" class="loading-screen" aria-hidden="true">
+      <div class="loader-ring-wrap">
+        <svg class="loading-ring" viewBox="0 0 120 120" aria-hidden="true">
+          <circle class="loading-ring-track" cx="60" cy="60" r="54" fill="none" stroke-width="2" />
+          <circle id="loader-progress" class="loading-progress" cx="60" cy="60" r="54" fill="none" stroke-width="2" stroke-linecap="round" style="stroke-dasharray: 339.292; stroke-dashoffset: 339.292;" />
+        </svg>
+        <div class="loading-orb"></div>
+      </div>
+      <div class="loading-logotype">SPAK</div>
+      <div class="loading-number"><span id="loader-number">0</span><span style="opacity:.9">%</span></div>
     </div>
   </div>
 
   <script>
-    // ===== 岛屿配置 =====
+    // ===== Page titles (per language) =====
+    const PAGE_TITLE = {
+      en: 'Spak — Native OS for the Open Economy',
+      zh: 'Spak — 开放经济的原生系统'
+    }
+
+    // ===== Islands configuration =====
     const islands = [
-      { id: 'navbar',  file: 'islands/navbar.html' },
-      { id: 'hero',    file: 'islands/hero.html' },
-      { id: 'features',file: 'islands/features.html' },
-      { id: 'projects',file: 'islands/projects.html' },
-      { id: 'project-list',file: 'islands/project-list.html' },
-      { id: 'about-page',file: 'islands/about-page.html' },
-      { id: 'footer',  file: 'islands/footer.html' },
+      { id: 'navbar',       file: 'islands/navbar.html' },
+      { id: 'hero',         file: 'islands/hero.html' },
+      { id: 'features',     file: 'islands/features.html' },
+      { id: 'projects',     file: 'islands/projects.html' },
+      { id: 'project-list', file: 'islands/project-list.html' },
+      { id: 'about-page',   file: 'islands/about-page.html' },
+      { id: 'footer',       file: 'islands/footer.html' },
     ]
 
-    // ===== 页面定义 =====
+    // ===== Page definitions (hash-based routing) =====
     const pages = {
-      home:     { show: ['hero', 'features', 'projects'], hash: '' },
-      projects: { show: ['project-list'], hash: 'projects' },
-      about:    { show: ['about-page'], hash: 'about' },
+      home:     { show: ['hero', 'features', 'projects'], hash: '',            name: { en: 'Home',     zh: '首页' } },
+      projects: { show: ['project-list'],                  hash: 'projects',    name: { en: 'Projects', zh: '项目' } },
+      about:    { show: ['about-page'],                    hash: 'about',       name: { en: 'About',    zh: '关于' } },
     }
 
     function getPageFromHash() {
       const hash = window.location.hash.replace('#/', '').replace('#', '')
       if (hash === 'projects') return 'projects'
-      if (hash === 'about') return 'about'
+      if (hash === 'about')    return 'about'
       return 'home'
     }
 
-    function navigate(page) {
-      const config = pages[page] || pages.home
-
-      // 更新URL hash（不重复触发）
-      const targetHash = config.hash
-      const currentHash = window.location.hash.replace('#', '')
-      if (targetHash !== currentHash) {
-        window.location.hash = targetHash ? '#/' + targetHash : '#/'
-      }
-
-      // 更新导航激活态
-      document.querySelectorAll('.nav-link').forEach(btn => {
-        const p = btn.getAttribute('data-page')
-        btn.classList.toggle('active', p === page)
-      })
-
-      // 切换岛屿显隐
-      document.querySelectorAll('#app > .island-wrap').forEach(wrap => {
-        const name = wrap.dataset.island
-        if (name === 'navbar' || name === 'footer') {
-          wrap.style.display = ''
-          return
-        }
-        wrap.style.display = config.show.includes(name) ? '' : 'none'
-      })
-
-      window.scrollTo({ top: 0, behavior: 'smooth' })
+    function currentLang() {
+      return document.body.classList.contains('lang-zh') ? 'zh' : 'en'
     }
 
-    // 监听hash变化
-    window.addEventListener('hashchange', () => {
-      const page = getPageFromHash()
-      // 直接切换显示，不修改hash避免循环
+    function setLang(lang, { persist = true } = {}) {
+      document.body.classList.remove('lang-en', 'lang-zh')
+      document.body.classList.add('lang-' + lang)
+      document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en'
+      document.title = PAGE_TITLE[lang]
+      if (persist) {
+        try { localStorage.setItem('spak-lang', lang) } catch (e) {}
+      }
+    }
+
+    // ===== Initial language detection =====
+    ;(function initLang() {
+      let saved = null
+      try { saved = localStorage.getItem('spak-lang') } catch (e) {}
+      if (saved === 'zh' || saved === 'en') {
+        setLang(saved, { persist: false })
+      } else {
+        const nav = (navigator.language || 'en').toLowerCase()
+        setLang(nav.startsWith('zh') ? 'zh' : 'en', { persist: false })
+      }
+    })()
+
+    function navigate(page, { pushHash = true } = {}) {
       const config = pages[page] || pages.home
-      document.querySelectorAll('.nav-link').forEach(btn => {
+
+      // Update hash once (avoid loop)
+      if (pushHash) {
+        const targetHash = config.hash
+        const currentHash = window.location.hash.replace('#/', '').replace('#', '')
+        if (targetHash !== currentHash) {
+          history.replaceState(null, '', targetHash ? '#/' + targetHash : '#/')
+        }
+      }
+
+      // Update nav links (if navbar is already loaded)
+      const currentKey = page
+      document.querySelectorAll('.nav-link[data-page], .nav-link').forEach(btn => {
         const p = btn.getAttribute('data-page')
-        btn.classList.toggle('active', p === page)
+        if (!p) return
+        btn.classList.toggle('active', p === currentKey)
       })
+
+      // Toggle visibility of content islands
       document.querySelectorAll('#app > .island-wrap').forEach(wrap => {
         const name = wrap.dataset.island
         if (name === 'navbar' || name === 'footer') {
@@ -94,28 +117,47 @@
         }
         wrap.style.display = config.show.includes(name) ? '' : 'none'
       })
-      window.scrollTo({ top: 0, behavior: 'smooth' })
-    })
 
-    // 暴露给岛屿内的 onclick
+      // After switching page, re-run reveal + count observers
+      requestAnimationFrame(() => {
+        initScrollAnimation()
+        initCountUps()
+        window.scrollTo({ top: 0, behavior: 'instant' in window ? 'instant' : 'auto' })
+      })
+    }
+
     window.navigate = navigate
 
-    // ===== 加载所有岛屿 =====
+    // ===== Hash change listener =====
+    window.addEventListener('hashchange', () => {
+      const page = getPageFromHash()
+      navigate(page, { pushHash: false })
+      // After page switch, if hash contains a sub-anchor scroll to it
+      const raw = window.location.hash
+      if (raw.includes('?') || raw.includes('#') && raw.split('#').length > 2) {
+        // legacy nested hash; ignore
+      }
+    })
+
+    // ===== Islands loader =====
     async function loadIslands() {
       const app = document.getElementById('app')
-      app.innerHTML = ''
+      // Keep loader; append islands after (we remove loader after animation)
+      const loader = document.getElementById('loader')
 
       for (const item of islands) {
         try {
           const res = await fetch(item.file)
+          if (!res.ok) { console.warn('Island fetch failed:', item.file, res.status); continue }
           const html = await res.text()
           const wrap = document.createElement('div')
           wrap.className = 'island-wrap'
           wrap.dataset.island = item.id
           wrap.innerHTML = html
-          app.appendChild(wrap)
+          // Insert before loader so loader sits on top visually; then remove loader later
+          app.insertBefore(wrap, loader)
 
-          // 重新执行 script
+          // Re-execute any inline scripts inside the island
           wrap.querySelectorAll('script').forEach(oldScript => {
             const ns = document.createElement('script')
             Array.from(oldScript.attributes).forEach(a => ns.setAttribute(a.name, a.value))
@@ -123,49 +165,264 @@
             oldScript.parentNode.replaceChild(ns, oldScript)
           })
         } catch (e) {
-          console.warn('岛屿加载失败:', item.file, e)
+          console.warn('Island load failed:', item.file, e)
         }
       }
 
-      // 加载完成后：添加滚动观察者
-      initScrollAnimation()
+      // After all islands loaded, bind global interactions (navbar etc.)
+      bindGlobalInteractions()
 
-      // 根据hash初始化导航
-      navigate(getPageFromHash())
+      // Initialize scroll + count for first time
+      initScrollAnimation()
+      initCountUps()
+
+      // Route to initial page from hash
+      navigate(getPageFromHash(), { pushHash: false })
     }
 
-    // ===== 滚动触发动画（Intersection Observer） =====
+    // ===== Cinematic loader progress =====
+    function startLoaderAnimation(onDone) {
+      const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+      const loader = document.getElementById('loader')
+      const loaderNumber = document.getElementById('loader-number')
+      const loaderProgress = document.getElementById('loader-progress')
+      const ringCircumference = 339.292
+
+      if (prefersReduced) {
+        if (loader) { loader.style.display = 'none' }
+        onDone && onDone()
+        return
+      }
+
+      const duration = 1800
+      let startTs = null
+      function easeOutQuart(t) { return 1 - Math.pow(1 - t, 4) }
+
+      function tick(ts) {
+        if (!startTs) startTs = ts
+        const p = Math.min((ts - startTs) / duration, 1)
+        const value = Math.floor(easeOutQuart(p) * 100)
+        if (loaderNumber)   loaderNumber.textContent = value
+        if (loaderProgress) loaderProgress.style.strokeDashoffset = ringCircumference * (1 - easeOutQuart(p))
+        if (p < 1) {
+          requestAnimationFrame(tick)
+        } else {
+          if (loaderProgress) loaderProgress.style.strokeDashoffset = 0
+          if (loader) {
+            loader.classList.add('done')
+            setTimeout(() => {
+              if (loader && loader.parentNode) loader.parentNode.removeChild(loader)
+              onDone && onDone()
+            }, 700)
+          } else {
+            onDone && onDone()
+          }
+        }
+      }
+      requestAnimationFrame(tick)
+    }
+
+    // ===== Reveal on scroll =====
+    let revealObserver = null
     function initScrollAnimation() {
-      // 给所有卡片和section添加动画类
-      document.querySelectorAll('.card, .section, .about-card, .domain-card').forEach(el => {
-        if (!el.classList.contains('scroll-animate')) {
-          el.classList.add('scroll-animate', 'scroll-up')
+      // Tag reveal candidates if not tagged yet
+      document.querySelectorAll('.reveal, .card, .section, .about-card, .domain-card, .chip-row, .cta-wrap, .stats-grid > div, .manifesto-grid > div').forEach(el => {
+        if (!el.classList.contains('reveal') && !el.classList.contains('scroll-animate')) {
+          // Only tag elements that would benefit from reveal; skip if explicitly reveal already
         }
       })
-
-      // 创建观察者
-      const observer = new IntersectionObserver((entries) => {
+      const targets = document.querySelectorAll('.reveal, .scroll-animate')
+      if (!('IntersectionObserver' in window)) {
+        targets.forEach(t => t.classList.add('visible', 'in-view'))
+        return
+      }
+      if (revealObserver) revealObserver.disconnect()
+      revealObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
-            // 进入视口 -> 入场
+            entry.target.classList.add('in-view', 'visible')
             entry.target.classList.remove('exit')
-            entry.target.classList.add('visible')
+            revealObserver.unobserve(entry.target)
           } else {
-            // 离开视口 -> 出场
-            entry.target.classList.remove('visible')
+            // Allow re-animation on scroll back for fun
             entry.target.classList.add('exit')
+            entry.target.classList.remove('visible', 'in-view')
           }
         })
-      }, {
-        threshold: 0.15,
-        rootMargin: '0px 0px -50px 0px'
-      })
-
-      // 观察所有动画元素
-      document.querySelectorAll('.scroll-animate').forEach(el => observer.observe(el))
+      }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' })
+      targets.forEach(el => revealObserver.observe(el))
     }
 
-    loadIslands()
+    // ===== Count-up animation =====
+    let countObserver = null
+    function initCountUps() {
+      if (countObserver) countObserver.disconnect()
+      const els = document.querySelectorAll('.count-up')
+      if (!els.length) return
+
+      const easeOutQuart = (t) => 1 - Math.pow(1 - t, 4)
+      const compact = (n) => {
+        if (n >= 1e9) return (n / 1e9).toFixed(2).replace(/\.?0+$/, '') + 'B'
+        if (n >= 1e6) return (n / 1e6).toFixed(2).replace(/\.?0+$/, '') + 'M'
+        if (n >= 1e3) return Math.round(n / 1e3) + 'K'
+        return n.toLocaleString('en-US')
+      }
+
+      if (!('IntersectionObserver' in window)) {
+        els.forEach(el => {
+          const target = parseInt(el.dataset.target, 10) || 0
+          const prefix = el.dataset.prefix || ''
+          const suffix = el.dataset.suffix || ''
+          const fmt = el.dataset.format || 'compact'
+          el.textContent = fmt === 'locale'
+            ? prefix + target.toLocaleString('en-US') + suffix
+            : prefix + compact(target) + suffix
+        })
+        return
+      }
+
+      countObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (!entry.isIntersecting) return
+          const el = entry.target
+          if (el.dataset.counted) return
+          el.dataset.counted = '1'
+          const target = parseInt(el.dataset.target, 10) || 0
+          const prefix = el.dataset.prefix || ''
+          const suffix = el.dataset.suffix || ''
+          const fmt = el.dataset.format || 'compact'
+          const duration = 1800
+          let startTs = null
+
+          const format = (n) => {
+            if (fmt === 'locale') return prefix + n.toLocaleString('en-US') + suffix
+            return prefix + compact(n) + suffix
+          }
+
+          function step(ts) {
+            if (!startTs) startTs = ts
+            const p = Math.min((ts - startTs) / duration, 1)
+            const current = Math.floor(easeOutQuart(p) * target)
+            el.textContent = format(current)
+            if (p < 1) requestAnimationFrame(step)
+            else el.textContent = format(target)
+          }
+          requestAnimationFrame(step)
+          countObserver.unobserve(el)
+        })
+      }, { threshold: 0.4 })
+
+      els.forEach(el => countObserver.observe(el))
+    }
+
+    // ===== Smooth scroll for anchor links =====
+    function bindSmoothScroll(rootEl) {
+      const scope = rootEl || document
+      scope.querySelectorAll('a[data-scroll], a[href^="#"]').forEach(a => {
+        if (a.dataset.boundScroll) return
+        // Skip pure routing buttons like onclick="navigate(...)" (they don't use href="#...")
+        const href = a.getAttribute('href') || ''
+        if (!href.startsWith('#')) return
+        a.dataset.boundScroll = '1'
+        a.addEventListener('click', (ev) => {
+          const selector = href
+          if (!selector || selector === '#' || selector === '#/') return
+          // Strip leading '#/' or '#'
+          const clean = selector.replace(/^#\/?/, '')
+          // 1) If it matches a page hash (projects / about), do route + then top
+          if (pages[clean]) {
+            ev.preventDefault()
+            navigate(clean)
+            return
+          }
+          // 2) Otherwise try anchor ID scroll on currently visible page
+          const target = document.getElementById(clean)
+          if (target) {
+            ev.preventDefault()
+            // Close mobile menu if open
+            const mm = document.getElementById('mobile-menu')
+            if (mm) {
+              mm.classList.add('hidden-menu')
+              mm.setAttribute('aria-hidden', 'true')
+              const mt = document.getElementById('menu-toggle')
+              if (mt) mt.setAttribute('aria-expanded', 'false')
+            }
+            const navH = 72
+            const rect = target.getBoundingClientRect()
+            const top = window.scrollY + rect.top - navH
+            window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' })
+          }
+        })
+      })
+    }
+
+    // ===== Global interactions (once navbar/footer etc. loaded) =====
+    function bindGlobalInteractions() {
+      // Smooth scroll across whole document
+      bindSmoothScroll(document)
+
+      // Mobile menu
+      const menuToggle = document.getElementById('menu-toggle')
+      const menuClose  = document.getElementById('menu-close')
+      const mobileMenu = document.getElementById('mobile-menu')
+      if (menuToggle && mobileMenu) {
+        menuToggle.addEventListener('click', () => {
+          mobileMenu.classList.remove('hidden-menu')
+          mobileMenu.setAttribute('aria-hidden', 'false')
+          menuToggle.setAttribute('aria-expanded', 'true')
+        })
+      }
+      if (menuClose && mobileMenu) {
+        menuClose.addEventListener('click', () => {
+          mobileMenu.classList.add('hidden-menu')
+          mobileMenu.setAttribute('aria-hidden', 'true')
+          if (menuToggle) menuToggle.setAttribute('aria-expanded', 'false')
+        })
+      }
+      // Click outside to close mobile menu
+      if (mobileMenu) {
+        mobileMenu.addEventListener('click', (e) => {
+          if (e.target === mobileMenu) {
+            mobileMenu.classList.add('hidden-menu')
+            mobileMenu.setAttribute('aria-hidden', 'true')
+            if (menuToggle) menuToggle.setAttribute('aria-expanded', 'false')
+          }
+        })
+      }
+
+      // Language toggles (all buttons)
+      const toggles = document.querySelectorAll('.lang-toggle, #global-lang-toggle, #mobile-lang-toggle')
+      toggles.forEach(btn => {
+        if (btn.dataset.boundLang) return
+        btn.dataset.boundLang = '1'
+        btn.addEventListener('click', () => {
+          const next = currentLang() === 'zh' ? 'en' : 'zh'
+          setLang(next)
+        })
+      })
+
+      // Legacy nav-link onclick="navigate(...)" may not have data-page; ensure consistency
+      document.querySelectorAll('.nav-link').forEach(btn => {
+        // If it has onclick already set (from islands), that's fine.
+        // If it's a scroll anchor, bindSmoothScroll handles it.
+      })
+    }
+
+    // ===== Boot sequence =====
+    ;(async function boot() {
+      // Kick off loader animation in parallel with island fetching
+      let loaderDone = false
+      let islandsDone = false
+      function tryFinalize() {
+        if (loaderDone && islandsDone) {
+          // Everything is ready; final reveal ensured by CSS on loader
+        }
+      }
+      startLoaderAnimation(() => { loaderDone = true; tryFinalize() })
+      await loadIslands()
+      islandsDone = true
+      tryFinalize()
+    })()
   </script>
 </body>
 </html>

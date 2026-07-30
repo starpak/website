@@ -1,44 +1,98 @@
-/* ===== 主题切换样式 ===== */
+/* ===== Spak — Zentry-inspired dark-gold token system ===== */
 
-/* 手动切换主题按钮 */
-.theme-toggle {
-  width: 40px;
-  height: 40px;
-  border-radius: var(--md-shape-full);
-  border: 1px solid var(--md-outline-variant);
-  background: var(--md-surface-container);
-  color: var(--md-on-surface-variant);
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 18px;
-  transition: all .2s;
-}
-.theme-toggle:hover {
-  background: var(--md-surface-container-high);
-  border-color: var(--md-primary);
+:root {
+  --spak-background: #0B0B0F;
+  --spak-foreground: #F2F0E9;
+
+  --spak-card: #141419;
+  --spak-card-foreground: #F2F0E9;
+
+  --spak-popover: #141419;
+  --spak-popover-foreground: #F2F0E9;
+
+  --spak-primary: #E8A23D;
+  --spak-primary-foreground: #0B0B0F;
+
+  --spak-muted: #1C1C22;
+  --spak-muted-foreground: #9A9890;
+
+  --spak-border: #2A2A32;
+  --spak-input: #1C1C22;
+  --spak-ring: #E8A23D;
+
+  --spak-radius-sm: 4px;
+  --spak-radius-md: 8px;
+  --spak-radius-lg: 16px;
+
+  /* semantic aliases */
+  --spak-surface: #141419;
+  --spak-surface-2: #1C1C22;
+  --spak-ink: #F2F0E9;
+  --spak-ink-2: #9A9890;
+  --spak-ink-3: #6B6962;
+  --spak-line: #2A2A32;
+  --spak-brand: #E8A23D;
+  --spak-brand-ink: #0B0B0F;
+
+  --spak-shadow-1: 0 1px 2px rgba(11,11,15,0.05), 0 1px 1px rgba(11,11,15,0.03);
+  --spak-shadow-2: 0 8px 24px -8px rgba(11,11,15,0.18);
+  --spak-shadow-3: 0 24px 60px -20px rgba(11,11,15,0.30);
+
+  --spak-hero-radial: radial-gradient(circle at 50% 45%, color-mix(in srgb, var(--spak-primary) 12%, transparent), transparent 55%);
 }
 
-/* 亮色主题下隐藏月亮，暗色主题下隐藏太阳 */
-html:not(.dark) .theme-moon,
-html.dark .theme-sun {
-  display: none;
+/* ===== MD3 兼容别名（避免旧样式断裂） ===== */
+:root {
+  --md-primary: var(--spak-primary);
+  --md-on-primary: var(--spak-primary-foreground);
+  --md-primary-container: color-mix(in srgb, var(--spak-primary) 18%, transparent);
+  --md-on-primary-container: var(--spak-foreground);
+  --md-secondary-container: var(--spak-surface-2);
+  --md-on-secondary-container: var(--spak-foreground);
+  --md-tertiary-container: color-mix(in srgb, var(--spak-primary) 10%, var(--spak-surface));
+  --md-on-tertiary-container: var(--spak-foreground);
+  --md-surface: var(--spak-background);
+  --md-surface-container-low: var(--spak-card);
+  --md-surface-container: var(--spak-surface);
+  --md-surface-container-high: var(--spak-surface-2);
+  --md-on-surface: var(--spak-foreground);
+  --md-on-surface-variant: var(--spak-ink-2);
+  --md-outline: var(--spak-line);
+  --md-outline-variant: var(--spak-border);
+  --md-shape-full: 9999px;
 }
 
-/* 主题过渡 */
-html {
-  transition: background-color .3s, color .3s;
-}
-html * {
-  transition: background-color .3s, border-color .3s, box-shadow .3s;
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: Inter, "Noto Sans SC", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+  color: var(--spak-foreground);
+  background-color: var(--spak-background);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* 滚动条主题 */
+/* ===== Language toggle ===== */
+.lang-en .zh, .lang-en [data-lang="zh"] { display: none !important; }
+.lang-zh .en, .lang-zh [data-lang="en"] { display: none !important; }
+.lang-zh h1 { line-height: 1.08 !important; }
+.lang-zh h2 { line-height: 1.15 !important; }
+.lang-zh h3 { line-height: 1.3 !important; }
+.lang-zh p { line-height: 1.75 !important; }
+.lang-zh .leading-relaxed { line-height: 1.85 !important; }
+
+/* ===== Scrollbar ===== */
 ::-webkit-scrollbar { width: 8px; }
-::-webkit-scrollbar-track { background: var(--md-surface-container-low); }
+::-webkit-scrollbar-track { background: var(--spak-background); }
 ::-webkit-scrollbar-thumb {
-  background: var(--md-outline-variant);
-  border-radius: var(--md-shape-full);
+  background: var(--spak-border);
+  border-radius: 9999px;
 }
-::-webkit-scrollbar-thumb:hover { background: var(--md-outline); }
+::-webkit-scrollbar-thumb:hover { background: var(--spak-primary); }
+
+/* ===== Theme transitions ===== */
+html { transition: background-color .3s, color .3s; }
+html * { transition: background-color .3s, border-color .3s, box-shadow .3s, color .2s; }
+
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }

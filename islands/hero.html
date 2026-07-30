@@ -1,41 +1,56 @@
-<section class="hero">
+<section id="hero" class="hero">
+  <div class="hero-orb" aria-hidden="true">
+    <img src="assets/hero-orb.jpg" alt="Metallic golden orb" />
+  </div>
   <div class="hero-bg"></div>
   <div class="hero-particles" id="hero-particles"></div>
   <div class="hero-glow-ring" style="top:20%;left:30%"></div>
   <div class="hero-glow-ring" style="top:60%;left:70%;animation-delay:2s"></div>
   <div class="hero-glow-ring" style="top:30%;left:80%;animation-delay:4s"></div>
-  <div class="container hero-content">
-    <div class="hero-badge">
+
+  <div class="hero-content">
+    <p class="hero-badge">
       <span class="badge-dot"></span>
-      starpak team
-    </div>
+      <span class="en">The Native OS for the Open Economy</span>
+      <span class="zh">开放经济的原生系统</span>
+    </p>
     <h1 class="hero-title">
-      <span class="gradient-text">spak</span>
+      <span class="en">NATIVE. OPEN. YOURS.</span>
+      <span class="zh">原生。开放。属于你。</span>
     </h1>
-    <p class="hero-subtitle"><span class="material-symbols-outlined" style="font-size:20px;vertical-align:middle">auto_awesome</span> 用代码点亮星辰 · 以热爱驱动未来 <span class="material-symbols-outlined" style="font-size:20px;vertical-align:middle">auto_awesome</span></p>
-    <p class="hero-desc">一支充满活力的技术团队，专注于构建优雅、高效的数字解决方案。</p>
+    <p class="hero-desc">
+      <span class="en">Spak is a modular operating system for ownership: identity, assets, apps, and incentives unified on one native stack.</span>
+      <span class="zh">Spak 是一套面向所有权的模块化操作系统：身份、资产、应用与激励，全部集成在同一原生栈上。</span>
+    </p>
     <div class="hero-actions">
-      <button class="btn btn-primary" onclick="navigate('projects')">
-        探索项目 <span class="arrow">→</span>
-      </button>
-      <button class="btn btn-secondary" onclick="navigate('about')">了解团队</button>
+      <a href="#manifesto" class="magnetic-btn" data-scroll>
+        <span class="magnetic-track">
+          <span><span class="en">Explore the OS</span><span class="zh">探索系统</span></span>
+          <span><span class="en">Explore the OS</span><span class="zh">探索系统</span></span>
+        </span>
+        <span class="material-symbols-outlined" style="font-size:20px">arrow_forward</span>
+      </a>
     </div>
   </div>
 </section>
+
 <script>
 ;(function() {
+  // Legacy particle twinkle (enhances atmosphere)
   const container = document.getElementById('hero-particles')
-  if (!container) return
-  for (let i = 0; i < 60; i++) {
-    const star = document.createElement('div')
-    star.className = 'star'
-    star.style.left = Math.random() * 100 + '%'
-    star.style.top = Math.random() * 100 + '%'
-    star.style.setProperty('--dur', (2 + Math.random() * 4) + 's')
-    star.style.animationDelay = Math.random() * 5 + 's'
-    star.style.width = (2 + Math.random() * 3) + 'px'
-    star.style.height = star.style.width
-    container.appendChild(star)
+  if (container) {
+    for (let i = 0; i < 40; i++) {
+      const star = document.createElement('div')
+      star.className = 'star'
+      star.style.left = Math.random() * 100 + '%'
+      star.style.top = Math.random() * 100 + '%'
+      star.style.setProperty('--dur', (2 + Math.random() * 4) + 's')
+      star.style.animationDelay = Math.random() * 5 + 's'
+      const size = 2 + Math.random() * 3
+      star.style.width = size + 'px'
+      star.style.height = size + 'px'
+      container.appendChild(star)
+    }
   }
 })()
 </script>

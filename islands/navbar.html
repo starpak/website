@@ -1,19 +1,39 @@
-<div class="navbar">
-  <div class="container nav-inner">
-    <div class="nav-logo" onclick="navigate('home')">
-      <span class="material-symbols-outlined" style="font-size:24px;color:var(--md-primary)">globe</span>
-      <span>spak</span>
-    </div>
+<nav class="nav-glass">
+  <div class="nav-inner">
+    <a href="#hero" class="nav-logo" data-scroll>
+      <span style="color:var(--spak-primary)">✦</span>
+      <span>SPAK</span>
+    </a>
     <div class="nav-links">
-      <button class="nav-link active" data-route="home" onclick="navigate('home')">首页</button>
-      <button class="nav-link" data-route="projects" onclick="navigate('projects')">项目</button>
-      <button class="nav-link" data-route="about" onclick="navigate('about')">关于</button>
+      <a href="#features" class="nav-link" data-scroll><span class="en">Ecosystem</span><span class="zh">生态系统</span></a>
+      <a href="#vault" class="nav-link" data-scroll><span class="en">Vault</span><span class="zh">金库</span></a>
+      <a href="#metrics" class="nav-link" data-scroll><span class="en">Network</span><span class="zh">网络</span></a>
+      <a href="#footer" class="nav-link" data-scroll><span class="en">Docs</span><span class="zh">文档</span></a>
+    </div>
+    <div class="nav-actions">
+      <button class="lang-toggle" id="global-lang-toggle" aria-label="Switch language">
+        <span class="en">EN / 中文</span>
+        <span class="zh">EN / 中文</span>
+      </button>
+      <a href="#hero" class="btn-outline-gold hidden md:inline-flex" data-scroll><span class="en">Open OS</span><span class="zh">打开系统</span></a>
+      <button id="menu-toggle" class="menu-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+        <span class="material-symbols-outlined">menu</span>
+      </button>
     </div>
   </div>
+</nav>
+
+<div id="mobile-menu" class="mobile-menu hidden-menu" aria-hidden="true">
+  <button id="menu-close" class="mobile-menu-close" aria-label="Close menu">
+    <span class="material-symbols-outlined">close</span>
+  </button>
+  <button class="lang-toggle" style="margin-bottom:8px" id="mobile-lang-toggle" aria-label="Switch language">
+    <span class="en">EN / 中文</span>
+    <span class="zh">EN / 中文</span>
+  </button>
+  <a href="#features" class="mobile-link" data-scroll><span class="en">Ecosystem</span><span class="zh">生态系统</span></a>
+  <a href="#vault" class="mobile-link" data-scroll><span class="en">Vault</span><span class="zh">金库</span></a>
+  <a href="#metrics" class="mobile-link" data-scroll><span class="en">Network</span><span class="zh">网络</span></a>
+  <a href="#footer" class="mobile-link" data-scroll><span class="en">Docs</span><span class="zh">文档</span></a>
+  <a href="#hero" class="btn-outline-gold mobile-link" style="margin-top:16px" data-scroll><span class="en">Open OS</span><span class="zh">打开系统</span></a>
 </div>
-<script>
-// 初始化主题（跟随系统）
-if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-  document.documentElement.classList.add('dark')
-}
-</script>
