@@ -1,0 +1,52 @@
+:root {
+  /* Spak — Zentry-inspired dark-gold token system */
+  --spak-background: #0B0B0F;
+  --spak-foreground: #F2F0E9;
+
+  --spak-card: #141419;
+  --spak-card-foreground: #F2F0E9;
+
+  --spak-popover: #141419;
+  --spak-popover-foreground: #F2F0E9;
+
+  --spak-primary: #E8A23D;
+  --spak-primary-foreground: #0B0B0F;
+
+  --spak-muted: #1C1C22;
+  --spak-muted-foreground: #9A9890;
+
+  --spak-border: #2A2A32;
+  --spak-input: #1C1C22;
+  --spak-ring: #E8A23D;
+
+  --spak-radius-sm: 4px;
+  --spak-radius-md: 8px;
+  --spak-radius-lg: 16px;
+
+  /* semantic aliases for page-level styling */
+  --spak-surface: #141419;
+  --spak-surface-2: #1C1C22;
+  --spak-ink: #F2F0E9;
+  --spak-ink-2: #9A9890;
+  --spak-ink-3: #6B6962;
+  --spak-line: #2A2A32;
+  --spak-brand: #E8A23D;
+  --spak-brand-ink: #0B0B0F;
+
+  /* static shadows for real floating layers only */
+  --spak-shadow-1: 0 1px 2px rgba(11,11,15,0.05), 0 1px 1px rgba(11,11,15,0.03);
+  --spak-shadow-2: 0 8px 24px -8px rgba(11,11,15,0.18);
+  --spak-shadow-3: 0 24px 60px -20px rgba(11,11,15,0.30);
+}
+
+/* Base typography */
+html {
+  scroll-behavior: smooth;
+}
+body {
+  font-family: Inter, "Noto Sans SC", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+  color: var(--spak-foreground);
+  background-color: var(--spak-background);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}

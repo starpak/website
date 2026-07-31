@@ -1,0 +1,103 @@
+{
+  "success": true,
+  "outcome": "passed",
+  "repairable": true,
+  "terminalViolations": [],
+  "terminalBlockingSummary": null,
+  "skillProvenance": {
+    "name": "solo-design",
+    "version": "2026.07.22.00.00.00",
+    "version_source": "skill-release-manifest.json",
+    "runtime_skill_dir": "/data/user/builtin/design/default/skills/solo-design",
+    "recorded_at": null,
+    "expected_version": "2026.07.22.00.00.00",
+    "status": "manifest_fallback",
+    "read_status": "ok",
+    "reason": "runtime-orchestration-summary.json missing skillProvenance; used skill-release-manifest.json"
+  },
+  "operatingMode": "free-explore",
+  "renderBlockingErrorCount": 0,
+  "softWarningCount": 2,
+  "renderBlockingErrors": [],
+  "errorSignatures": [],
+  "softWarnings": [
+    "[orchestration-summary] runtime-orchestration-summary.json is missing skillProvenance.name/version/version_source. Version provenance will be reported as observed_unknown by external evaluators.",
+    "[html-quality] colors_and_type.css: ordinary/static shadow tokens must keep every shadow alpha <= 0.05; deeper shadows are allowed only for floating-layer tokens such as modal/popover/dropdown/drawer/overlay (--spak-shadow-2: 0 8px 24px -8px rgba(11,11,15,0.18), --spak-shadow-3: 0 24px 60px -20px rgba(11,11,15,0.30))."
+  ],
+  "repairPlanHints": [],
+  "repairActionTable": [],
+  "errorCount": 0,
+  "warningCount": 2,
+  "errors": [],
+  "warnings": [
+    "[orchestration-summary] runtime-orchestration-summary.json is missing skillProvenance.name/version/version_source. Version provenance will be reported as observed_unknown by external evaluators.",
+    "[html-quality] colors_and_type.css: ordinary/static shadow tokens must keep every shadow alpha <= 0.05; deeper shadows are allowed only for floating-layer tokens such as modal/popover/dropdown/drawer/overlay (--spak-shadow-2: 0 8px 24px -8px rgba(11,11,15,0.18), --spak-shadow-3: 0 24px 60px -20px rgba(11,11,15,0.30))."
+  ],
+  "validationRunDisciplineStatus": {
+    "declared": true,
+    "restoreMode": false,
+    "maxFullValidationRuns": 2,
+    "validationHistoryCount": 0,
+    "repairLedgerCount": 0,
+    "softWarningsTriggerRepair": false,
+    "terminalState": null,
+    "nextAction": null,
+    "violations": [],
+    "success": true
+  },
+  "terminalState": null,
+  "nextCheck": {
+    "type": "finish-readiness",
+    "command": "node '/data/user/builtin/design/default/skills/solo-design/shared-runtime/deterministic-tooling/validate-finish-readiness.mjs' '/workspace/spak-website' --check=all",
+    "fullValidationAllowed": false,
+    "reason": "workspace validation passed; run complete finish readiness before final delivery"
+  },
+  "repairBatch": [],
+  "repairContextPacket": {
+    "schema_version": "1.0",
+    "purpose": "small-context repair packet; read this before full validation-report.json",
+    "success": true,
+    "terminalState": null,
+    "skillProvenance": {
+      "name": "solo-design",
+      "version": "2026.07.22.00.00.00",
+      "version_source": "skill-release-manifest.json",
+      "runtime_skill_dir": "/data/user/builtin/design/default/skills/solo-design",
+      "recorded_at": null,
+      "expected_version": "2026.07.22.00.00.00",
+      "status": "manifest_fallback",
+      "read_status": "ok",
+      "reason": "runtime-orchestration-summary.json missing skillProvenance; used skill-release-manifest.json"
+    },
+    "renderBlockingErrorCount": 0,
+    "softWarningCount": 2,
+    "renderBlockingErrors": [],
+    "repairActionTable": [],
+    "nextCheck": {
+      "type": "finish-readiness",
+      "command": "node '/data/user/builtin/design/default/skills/solo-design/shared-runtime/deterministic-tooling/validate-finish-readiness.mjs' '/workspace/spak-website' --check=all",
+      "fullValidationAllowed": false,
+      "reason": "workspace validation passed; run complete finish readiness before final delivery"
+    },
+    "forbidden": [
+      "do not read validator source",
+      "do not rerun full validation when nextCheck.fullValidationAllowed=false",
+      "do not start preview/browser unless user explicitly asks",
+      "do not hand-edit repair ledger fields"
+    ]
+  },
+  "projectFileHashes": {
+    "spak-website.design": "dc8d80c03013005fd80f9d53a592f8cb66d2844965476cdc2a931acda20710ed",
+    "colors_and_type.css": "6e6146945bfb2e8dec9764d0d533332dd28fc75f3c5787f36fc5ec7f8b76dba3",
+    "runtime-orchestration-summary.json": "ff7fa888190679feafb61ca8e652a967e291a07a4da7a3112e583aff1dc9f9a5",
+    "pages/index.html": "1ad1a96a48cac812f4e9607230878dbf5f123ff0a6d97e25c3acc6c44cd6f488",
+    "assets/feature-collect.jpg": "215f9918db56e953ed1dae38ff094e469f2d1eabb4c3dd6b03af6daab97d4544",
+    "assets/feature-earn.jpg": "848c6c6068e6947a6bbbda327bf5ed70751fade2ef8eba00fac194e0c6cef0f3",
+    "assets/feature-play.jpg": "860272d11e39f6122cc8052679a6ce72ffdda35cd39644359970ad74b17f3823",
+    "assets/hero-orb.jpg": "04edeb4946554b66b40040501b8bfd260ccccdc68d0568d93e1c3d856205d4d8"
+  },
+  "designDir": "/workspace/spak-website",
+  "expectedPages": null,
+  "requireInteractions": null,
+  "checkedAt": "2026-07-30T22:20:07.637Z"
+}

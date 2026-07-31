@@ -1,0 +1,104 @@
+{
+  "data": [
+    {
+      "id": "page-index",
+      "title": "Spak — Play, Own, Thrive",
+      "type": "page",
+      "version": 1,
+      "createdAt": 1751257600000,
+      "canvasData": {
+        "x": 0,
+        "y": 0,
+        "group": 0,
+        "layoutSnapshot": {
+          "version": 1,
+          "contentHeight": 4273,
+          "viewportWidth": 1440,
+          "sourceHash": "fnv1a-3dd2de95",
+          "measuredAt": 1785449840579
+        }
+      },
+      "devMetadata": {
+        "htmlSrc": "pages/index.html",
+        "interactions": []
+      }
+    },
+    {
+      "id": "image-001",
+      "title": "Hero Orb",
+      "type": "image",
+      "version": 1,
+      "createdAt": 1751257600001,
+      "canvasData": {
+        "x": 0,
+        "y": 0,
+        "naturalSize": {
+          "width": 2560,
+          "height": 1440
+        }
+      },
+      "devMetadata": {
+        "imageSrc": "assets/hero-orb.jpg"
+      }
+    },
+    {
+      "id": "image-002",
+      "title": "Play Feature",
+      "type": "image",
+      "version": 1,
+      "createdAt": 1751257600002,
+      "canvasData": {
+        "x": 0,
+        "y": 0,
+        "naturalSize": {
+          "width": 2240,
+          "height": 1680
+        }
+      },
+      "devMetadata": {
+        "imageSrc": "assets/feature-play.jpg"
+      }
+    },
+    {
+      "id": "image-003",
+      "title": "Earn Feature",
+      "type": "image",
+      "version": 1,
+      "createdAt": 1751257600003,
+      "canvasData": {
+        "x": 0,
+        "y": 0,
+        "naturalSize": {
+          "width": 2240,
+          "height": 1680
+        }
+      },
+      "devMetadata": {
+        "imageSrc": "assets/feature-earn.jpg"
+      }
+    },
+    {
+      "id": "image-004",
+      "title": "Collect Feature",
+      "type": "image",
+      "version": 1,
+      "createdAt": 1751257600004,
+      "canvasData": {
+        "x": 0,
+        "y": 0,
+        "naturalSize": {
+          "width": 2240,
+          "height": 1680
+        }
+      },
+      "devMetadata": {
+        "imageSrc": "assets/feature-collect.jpg"
+      }
+    }
+  ],
+  "config": {
+    "autoLayout": true,
+    "deviceType": "desktop",
+    "projectName": "Spak Website"
+  }
+}

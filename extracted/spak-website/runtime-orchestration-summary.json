@@ -1,0 +1,364 @@
+{
+  "project": {
+    "name": "Spak Website Redesign",
+    "resolvedLane": "free_exploration",
+    "intentProfile": {
+      "caseFamily": "free_exploration",
+      "routingReason": "Open-ended single-page website redesign with no active Design Library, no 1:1 restoration target, and no multi-device split."
+    },
+    "operatingMode": "free-explore",
+    "deviceType": "desktop",
+    "language": "en",
+    "defaultDeliverableVisibility": {
+      "applies": true,
+      "requiredVisibleRegions": [
+        {
+          "htmlSrc": "pages/index.html",
+          "selector": "#hero",
+          "label": "hero section",
+          "source": "primary brand introduction"
+        },
+        {
+          "htmlSrc": "pages/index.html",
+          "selector": "#features",
+          "label": "features section",
+          "source": "product value proposition"
+        },
+        {
+          "htmlSrc": "pages/index.html",
+          "selector": "#vault",
+          "label": "vault section",
+          "source": "reward engine narrative"
+        },
+        {
+          "htmlSrc": "pages/index.html",
+          "selector": "#metrics",
+          "label": "metrics section",
+          "source": "backer and traction proof"
+        },
+        {
+          "htmlSrc": "pages/index.html",
+          "selector": "#footer",
+          "label": "footer",
+          "source": "real site footer"
+        }
+      ],
+      "hiddenAllowed": [
+        {
+          "htmlSrc": "pages/index.html",
+          "selector": "#loader",
+          "label": "cinematic loading screen",
+          "reason": "transient overlay that fades out after count-up"
+        }
+      ]
+    },
+    "contextRequirementsLoaded": [
+      {
+        "path": "shared-runtime/runtime-boundaries/lane-runtime-contracts.md",
+        "readStatus": "loaded",
+        "bodyRead": true
+      },
+      {
+        "path": "shared-runtime/agent-dispatch-runtime/lane-dispatch-index.md",
+        "readStatus": "loaded",
+        "bodyRead": true
+      },
+      {
+        "path": "delivery-quality/page-rendering-quality-gate.md",
+        "readStatus": "loaded",
+        "bodyRead": true
+      },
+      {
+        "path": "delivery-quality/design-artifact-validation.md",
+        "readStatus": "loaded",
+        "bodyRead": true
+      },
+      {
+        "path": "delivery-quality/delivery-evidence-contract.md",
+        "readStatus": "loaded",
+        "bodyRead": true
+      },
+      {
+        "path": "visual-experience/visual-experience-guidelines.md",
+        "readStatus": "loaded",
+        "bodyRead": true
+      }
+    ],
+    "contextReadScope": {
+      "mainAgent": {
+        "forbiddenReads": [
+          "other intent-workflows/**",
+          "Sub-Agent implementation files before dispatch"
+        ]
+      },
+      "pageSubAgent": {
+        "allowedReads": [
+          "current lane page runtime guide",
+          "current lane dispatch contract excerpt",
+          "current Page Packet",
+          "supplementaryReads[] only"
+        ],
+        "forbiddenReads": [
+          "SKILL.md full re-read",
+          "other intent-workflows/**",
+          "full runtime-orchestration-summary.json unless explicitly sliced"
+        ]
+      },
+      "readScopeLedgerWriter": "shared-runtime/deterministic-tooling/build-page-dispatch-manifest.mjs"
+    },
+    "selectedIntentWorkflowRead": true,
+    "validationRunDiscipline": {
+      "maxFullValidationRuns": 2,
+      "softWarningsTriggerRepair": false,
+      "blockingRepairMode": "targeted-once",
+      "forbiddenRepairTriggers": [
+        "soft-warning-only",
+        "provenance-warning-only",
+        "style-warning-only"
+      ]
+    },
+    "lowValueCallWatchdog": {
+      "applies": true,
+      "noProgressSignals": [
+        "no_tool_call",
+        "no_artifact_diff",
+        "no_structured_decision"
+      ],
+      "noProgressNextAction": "enter_readiness_or_blocked_summary"
+    },
+    "creativeRecipe": {
+      "businessTone": "premium gaming-and-creator economy membership network",
+      "layoutArchetype": "cinematic dark showcase with full-screen scenes and asymmetric editorial rhythm",
+      "visualSignature": "near-black canvas, single molten-gold brand hue, oversized condensed typography, 3D metallic orbs, magnetic text buttons, scroll-triggered reveals",
+      "densityTarget": "balanced",
+      "avoidOneThing": "generic three-equal-card feature wall and neon rainbow gradients"
+    },
+    "pagePlan": [
+      {
+        "nodeId": "page-index",
+        "htmlSrc": "pages/index.html",
+        "title": "Spak — Play, Own, Thrive",
+        "writeMode": "SectionPlanThenWrite",
+        "viewportMode": "document-scroll",
+        "deviceType": "web",
+        "pageType": "showcase",
+        "sections": [
+          "loader",
+          "navigation",
+          "hero",
+          "manifesto",
+          "features",
+          "vault",
+          "metrics",
+          "footer"
+        ],
+        "assets": [
+          "../assets/hero-orb.jpg",
+          "../assets/feature-play.jpg",
+          "../assets/feature-earn.jpg",
+          "../assets/feature-collect.jpg"
+        ],
+        "domIdsRequired": [],
+        "stateGroupId": null,
+        "stateRole": null,
+        "derivedFromHtmlSrc": null
+      }
+    ],
+    "cssPreflightEvidence": {
+      "applies": true,
+      "status": "passed",
+      "command": "node /data/user/builtin/design/default/skills/solo-design/shared-runtime/deterministic-tooling/apply-html-head-contract.mjs /workspace/spak-website/colors_and_type.css /workspace/spak-website/.preflight/preflight.html --title=\"Spak\" --lang=en --prefix=spak --theme=dark",
+      "brandPrefix": "spak",
+      "checks": {
+        "themeVars": "present",
+        "semanticTokenFallback": "present",
+        "themeInline": "present",
+        "tailwindCdn": "present",
+        "htmlClass": "dark",
+        "semanticMappings": "resolved"
+      },
+      "retryCount": 0,
+      "blockingReason": null
+    },
+    "dispatchPreflightManifest": [
+      {
+        "recorded_at": "2026-07-30T14:55:40.439Z",
+        "generatedBy": "build-page-dispatch-manifest.mjs",
+        "packetType": "FreePagePacket",
+        "laneContract": {
+          "resolvedLane": "free_exploration",
+          "packetType": "FreePagePacket",
+          "pageRuntimeGuide": "intent-workflows/intent-page-free-exploration/free-exploration-page-runtime.md",
+          "dispatchContract": "intent-workflows/intent-page-free-exploration/dispatch-contract.md"
+        },
+        "taskLinePresent": true,
+        "outputPathPresent": true,
+        "sharedTemplate": "intent-workflows/intent-page-free-exploration/free-exploration-page-runtime.md",
+        "nodeId": "page-index",
+        "htmlSrc": "pages/index.html",
+        "supplementaryReads": [],
+        "allowedWritePaths": [
+          "pages/index.html",
+          "assets/"
+        ],
+        "forbiddenWriteRoots": [
+          "*.design",
+          "runtime-orchestration-summary.json",
+          "validation-report.json",
+          "finish-readiness-report.json",
+          "restore-contract-report.json",
+          "page-generation-summary.json"
+        ],
+        "toolPolicy": {
+          "todoWriteAllowed": false,
+          "validationScriptsAllowed": false,
+          "previewAllowed": false,
+          "helperScriptsAllowed": false,
+          "designFileWriteAllowed": false,
+          "allowedWritePaths": [
+            "pages/index.html",
+            "assets/"
+          ]
+        },
+        "skillRuntime": {
+          "skillDir": "/data/user/builtin/design/default/skills/solo-design",
+          "deterministicToolDir": "/data/user/builtin/design/default/skills/solo-design/shared-runtime/deterministic-tooling",
+          "toolPaths": {
+            "applyHtmlHeadContract": "/data/user/builtin/design/default/skills/solo-design/shared-runtime/deterministic-tooling/apply-html-head-contract.mjs",
+            "recordDispatchCompletion": "/data/user/builtin/design/default/skills/solo-design/shared-runtime/deterministic-tooling/record-dispatch-completion.mjs",
+            "buildPageDispatchManifest": "/data/user/builtin/design/default/skills/solo-design/shared-runtime/deterministic-tooling/build-page-dispatch-manifest.mjs",
+            "validateDesignWorkspace": "/data/user/builtin/design/default/skills/solo-design/shared-runtime/deterministic-tooling/validate-design-workspace.mjs",
+            "validateFinishReadiness": "/data/user/builtin/design/default/skills/solo-design/shared-runtime/deterministic-tooling/validate-finish-readiness.mjs",
+            "validateRestoreContract": "/data/user/builtin/design/default/skills/solo-design/shared-runtime/deterministic-tooling/validate-restore-contract.mjs"
+          },
+          "requiredForPageSubAgent": [
+            "applyHtmlHeadContract",
+            "recordDispatchCompletion"
+          ],
+          "pathInjection": "absolute",
+          "pathContract": "Do not use {SKILL_DIR} placeholders inside Page Sub-Agent packets; use toolPaths.* absolute paths.",
+          "commandTemplates": {
+            "recordDispatchCompletion": "node '/data/user/builtin/design/default/skills/solo-design/shared-runtime/deterministic-tooling/record-dispatch-completion.mjs' '/workspace/spak-website' --node-id='page-index' --html-src='pages/index.html' --status=completed --changed-files=<comma-separated-project-relative-files> --trace-digest=<main-agent-runtime-trace-digest> --tool-ledger-json=<tool-ledger-json-or-file>"
+          }
+        },
+        "cssFilePath": "/workspace/spak-website/colors_and_type.css",
+        "htmlFilePath": "/workspace/spak-website/pages/index.html",
+        "brandPrefix": "spak",
+        "aestheticsMode": "free-explore",
+        "toolDisciplineBlockPresent": true,
+        "fillHtmlHeadCommand": "node '/data/user/builtin/design/default/skills/solo-design/shared-runtime/deterministic-tooling/apply-html-head-contract.mjs' '/workspace/spak-website/colors_and_type.css' '/workspace/spak-website/pages/index.html' --title='Spak — Play, Own, Thrive' --lang='en' --prefix='spak'",
+        "headFillMode": "skeleton-first",
+        "viewportMode": null,
+        "completionSchemaExpected": "compact",
+        "restoreFields": null,
+        "restoreContractStatus": null,
+        "restoreCompactPacket": null,
+        "deterministicCommands": null,
+        "sourceAuthorityLock": null,
+        "preDispatchFileHashes": {
+          "spak-website.design": "c4ffeba852385dd74eb950f4e516079f1f36b62d6ce251adfd8e3fee02e3a9a7"
+        },
+        "contextPreflight": {
+          "workflowPath": "intent-workflows/intent-page-free-exploration/INTENT_WORKFLOW.md",
+          "requiredContextFiles": [
+            "shared-runtime/runtime-boundaries/lane-runtime-contracts.md",
+            "shared-runtime/agent-dispatch-runtime/lane-dispatch-index.md",
+            "delivery-quality/page-rendering-quality-gate.md",
+            "delivery-quality/design-artifact-validation.md",
+            "delivery-quality/delivery-evidence-contract.md",
+            "visual-experience/visual-experience-guidelines.md"
+          ],
+          "optionalContextFiles": [],
+          "passed": true
+        },
+        "pageSliceOnly": true,
+        "requiredFieldsPresent": true,
+        "missingFields": [],
+        "fillHtmlHeadCommandValid": true,
+        "mobileNavigation": {
+          "required": false,
+          "appliesToThisPage": false,
+          "canonicalHtmlIncluded": false,
+          "missingFields": []
+        },
+        "persistedToSummary": true,
+        "taskQueryAudited": false,
+        "proofSource": "summary-only",
+        "largeWorkflowFilesInTaskQuery": null
+      }
+    ],
+    "readScopeLedger": [
+      {
+        "actor": "page-sub-agent",
+        "lane": "free_exploration",
+        "path": "intent-workflows/intent-page-free-exploration/free-exploration-page-runtime.md",
+        "reason": "page runtime guide",
+        "scopeClass": "page-runtime",
+        "declaredBeforeRead": true,
+        "recordedAt": "2026-07-30T14:55:40.439Z",
+        "nodeId": "page-index",
+        "htmlSrc": "pages/index.html"
+      },
+      {
+        "actor": "page-sub-agent",
+        "lane": "free_exploration",
+        "path": "intent-workflows/intent-page-free-exploration/dispatch-contract.md",
+        "reason": "dispatch contract",
+        "scopeClass": "dispatch-contract",
+        "declaredBeforeRead": true,
+        "recordedAt": "2026-07-30T14:55:40.439Z",
+        "nodeId": "page-index",
+        "htmlSrc": "pages/index.html"
+      }
+    ],
+    "expectedDispatches": [
+      {
+        "nodeId": "page-index",
+        "pageId": "page-index",
+        "targetPageId": "page-index",
+        "htmlSrc": "pages/index.html",
+        "packetType": "FreePagePacket",
+        "status": "completed",
+        "changedFiles": [
+          "pages/index.html"
+        ],
+        "toolCallLedger": {
+          "source": "main-agent-runtime-trace",
+          "traceDigest": "5cc46b63f6e0ec53e8986f4a13891a32ab5b2fb1570a29d960bd0991342ca539",
+          "todoWriteCalls": 0,
+          "previewCalls": 0,
+          "validationScriptCalls": 0,
+          "helperScriptWrites": 0
+        },
+        "recordedAt": "2026-07-30T15:07:46.358Z",
+        "source": "record-dispatch-completion.mjs"
+      }
+    ],
+    "mainAgentPostDispatchMutations": [
+      {
+        "path": "spak-website.design",
+        "reason": "registered-four-image-assets-in-design-data",
+        "owner": "main-agent",
+        "recordedAt": "2026-07-30T15:07:46.358Z",
+        "source": "record-dispatch-completion.mjs"
+      },
+      {
+        "path": "pages/index.html",
+        "reason": "rewrote-page-copy-from-gaming-to-native-os-narrative-with-bilingual-translations",
+        "owner": "main-agent",
+        "recordedAt": "2026-07-31T07:38:00.000Z",
+        "source": "main-agent-in-place-edit"
+      }
+    ]
+  },
+  "pages": [
+    {
+      "nodeId": "page-index",
+      "htmlSrc": "pages/index.html",
+      "title": "Spak — Native OS for the Open Economy",
+      "writeMode": "SectionPlanThenWrite",
+      "pageType": "showcase",
+      "status": "pending"
+    }
+  ]
+}

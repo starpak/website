@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spak — Native OS for the Open Economy</title>
+    <style id="theme-vars">
+:root {
+  /* Spak — Zentry-inspired dark-gold token system */
+  --spak-background: #0B0B0F;
+  --spak-foreground: #F2F0E9;
+
+  --spak-card: #141419;
+  --spak-card-foreground: #F2F0E9;
+
+  --spak-popover: #141419;
+  --spak-popover-foreground: #F2F0E9;
+
+  --spak-primary: #E8A23D;
+  --spak-primary-foreground: #0B0B0F;
+
+  --spak-muted: #1C1C22;
+  --spak-muted-foreground: #9A9890;
+
+  --spak-border: #2A2A32;
+  --spak-input: #1C1C22;
+  --spak-ring: #E8A23D;
+
+  --spak-radius-sm: 4px;
+  --spak-radius-md: 8px;
+  --spak-radius-lg: 16px;
+
+  /* semantic aliases for page-level styling */
+  --spak-surface: #141419;
+  --spak-surface-2: #1C1C22;
+  --spak-ink: #F2F0E9;
+  --spak-ink-2: #9A9890;
+  --spak-ink-3: #6B6962;
+  --spak-line: #2A2A32;
+  --spak-brand: #E8A23D;
+  --spak-brand-ink: #0B0B0F;
+
+  /* static shadows for real floating layers only */
+  --spak-shadow-1: 0 1px 2px rgba(11,11,15,0.05), 0 1px 1px rgba(11,11,15,0.03);
+  --spak-shadow-2: 0 8px 24px -8px rgba(11,11,15,0.18);
+  --spak-shadow-3: 0 24px 60px -20px rgba(11,11,15,0.30);
+}
+
+/* Base typography */
+html {
+  scroll-behavior: smooth;
+}
+body {
+  font-family: Inter, "Noto Sans SC", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+  color: var(--spak-foreground);
+  background-color: var(--spak-background);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.3.1/dist/index.global.js"></script>
+    <script src="https://unpkg.com/lucide@1.8.0/dist/umd/lucide.min.js"></script>
+    <style type="text/tailwindcss">
+  @theme inline {
+    --color-background: var(--spak-background);
+    --color-foreground: var(--spak-foreground);
+    --color-card: var(--spak-card);
+    --color-card-foreground: var(--spak-card-foreground);
+    --color-popover: var(--spak-popover);
+    --color-popover-foreground: var(--spak-popover-foreground);
+    --color-primary: var(--spak-primary);
+    --color-primary-foreground: var(--spak-primary-foreground);
+    --color-muted: var(--spak-muted);
+    --color-muted-foreground: var(--spak-muted-foreground);
+    --color-border: var(--spak-border);
+    --color-input: var(--spak-input);
+    --color-ring: var(--spak-ring);
+    --radius-sm: var(--spak-radius-sm);
+    --radius-md: var(--spak-radius-md);
+    --radius-lg: var(--spak-radius-lg);
+  }
+  @layer base {
+    body { background: var(--spak-background); color: var(--spak-foreground); }
+    td, th { @apply break-words; word-break: break-all; word-break: auto-phrase; }
+    th { @apply whitespace-nowrap; }
+  }
+    </style>
+    <style id="semantic-token-fallback">
+      .bg-background { background-color: var(--spak-background); }
+      .text-background { color: var(--spak-background); }
+      .border-background { border-color: var(--spak-background); }
+      .ring-background { --tw-ring-color: var(--spak-background); }
+      .bg-foreground { background-color: var(--spak-foreground); }
+      .text-foreground { color: var(--spak-foreground); }
+      .border-foreground { border-color: var(--spak-foreground); }
+      .ring-foreground { --tw-ring-color: var(--spak-foreground); }
+      .bg-card { background-color: var(--spak-card); }
+      .text-card { color: var(--spak-card); }
+      .border-card { border-color: var(--spak-card); }
+      .ring-card { --tw-ring-color: var(--spak-card); }
+      .bg-card-foreground { background-color: var(--spak-card-foreground); }
+      .text-card-foreground { color: var(--spak-card-foreground); }
+      .border-card-foreground { border-color: var(--spak-card-foreground); }
+      .ring-card-foreground { --tw-ring-color: var(--spak-card-foreground); }
+      .bg-popover { background-color: var(--spak-popover); }
+      .text-popover { color: var(--spak-popover); }
+      .border-popover { border-color: var(--spak-popover); }
+      .ring-popover { --tw-ring-color: var(--spak-popover); }
+      .bg-popover-foreground { background-color: var(--spak-popover-foreground); }
+      .text-popover-foreground { color: var(--spak-popover-foreground); }
+      .border-popover-foreground { border-color: var(--spak-popover-foreground); }
+      .ring-popover-foreground { --tw-ring-color: var(--spak-popover-foreground); }
+      .bg-primary { background-color: var(--spak-primary); }
+      .text-primary { color: var(--spak-primary); }
+      .border-primary { border-color: var(--spak-primary); }
+      .ring-primary { --tw-ring-color: var(--spak-primary); }
+      .bg-primary-foreground { background-color: var(--spak-primary-foreground); }
+      .text-primary-foreground { color: var(--spak-primary-foreground); }
+      .border-primary-foreground { border-color: var(--spak-primary-foreground); }
+      .ring-primary-foreground { --tw-ring-color: var(--spak-primary-foreground); }
+      .bg-muted { background-color: var(--spak-muted); }
+      .text-muted { color: var(--spak-muted); }
+      .border-muted { border-color: var(--spak-muted); }
+      .ring-muted { --tw-ring-color: var(--spak-muted); }
+      .bg-muted-foreground { background-color: var(--spak-muted-foreground); }
+      .text-muted-foreground { color: var(--spak-muted-foreground); }
+      .border-muted-foreground { border-color: var(--spak-muted-foreground); }
+      .ring-muted-foreground { --tw-ring-color: var(--spak-muted-foreground); }
+      .bg-border { background-color: var(--spak-border); }
+      .text-border { color: var(--spak-border); }
+      .border-border { border-color: var(--spak-border); }
+      .ring-border { --tw-ring-color: var(--spak-border); }
+      .bg-input { background-color: var(--spak-input); }
+      .text-input { color: var(--spak-input); }
+      .border-input { border-color: var(--spak-input); }
+      .ring-input { --tw-ring-color: var(--spak-input); }
+      .bg-ring { background-color: var(--spak-ring); }
+      .text-ring { color: var(--spak-ring); }
+      .border-ring { border-color: var(--spak-ring); }
+      .ring-ring { --tw-ring-color: var(--spak-ring); }
+    </style>
+    <style>
+      .no-scrollbar::-webkit-scrollbar { display: none; }
+      .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+      [data-icon] {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        -webkit-mask-size: contain;
+        mask-size: contain;
+        -webkit-mask-repeat: no-repeat;
+        mask-repeat: no-repeat;
+        -webkit-mask-position: center;
+        mask-position: center;
+        background-color: currentColor;
+      }
+    </style>
+</head>
+<body class="min-h-screen font-sans antialiased lang-en">
+    <main>
+  <style id="critical-layout">
+    :root {
+      --spak-hero-radial: radial-gradient(circle at 50% 45%, color-mix(in srgb, var(--spak-primary) 12%, transparent), transparent 55%);
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { overflow-x: hidden; }
+    .nav-glass {
+      position: fixed;
+      inset: 0 0 auto 0;
+      z-index: 60;
+      background: color-mix(in srgb, var(--spak-background) 82%, transparent);
+      border-bottom: 1px solid color-mix(in srgb, var(--spak-border) 55%, transparent);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+    .hero {
+      position: relative;
+      isolation: isolate;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      background-image: var(--spak-hero-radial);
+    }
+    .hero-orb {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: -1;
+      pointer-events: none;
+    }
+    .hero-orb img {
+      width: min(90vw, 720px);
+      opacity: .65;
+      animation: orb-pulse 8s ease-in-out infinite;
+    }
+    @keyframes orb-pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.06); }
+    }
+    .magnetic-btn {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      gap: .75rem;
+      overflow: hidden;
+      border-radius: 9999px;
+      padding: .95rem 2.2rem;
+      font-weight: 600;
+      background: var(--spak-primary);
+      color: var(--spak-primary-foreground);
+    }
+    .magnetic-track {
+      display: flex;
+      flex-direction: column;
+      transition: transform .4s cubic-bezier(.22, 1, .36, 1);
+    }
+    .magnetic-btn:hover .magnetic-track {
+      transform: translateY(-50%);
+    }
+
+    /* Language toggle */
+    .lang-en .zh { display: none; }
+    .lang-zh .en { display: none; }
+    .lang-toggle {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 9999px;
+      padding: .5rem .9rem;
+      font-size: .75rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      border: 1px solid var(--spak-border);
+      color: var(--spak-foreground);
+      background: color-mix(in srgb, var(--spak-background) 70%, transparent);
+      transition: border-color .2s ease, color .2s ease, background .2s ease;
+    }
+    .lang-toggle:hover {
+      border-color: var(--spak-primary);
+      color: var(--spak-primary);
+      background: color-mix(in srgb, var(--spak-primary) 10%, transparent);
+    }
+    .lang-zh h1 { line-height: 1.08 !important; }
+    .lang-zh h2 { line-height: 1.15 !important; }
+    .lang-zh h3 { line-height: 1.3 !important; }
+    .lang-zh p { line-height: 1.75 !important; }
+    .lang-zh .leading-relaxed { line-height: 1.85 !important; }
+
+    /* Cinematic loader */
+    .loader {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--spak-background);
+      transition: opacity .7s ease, visibility .7s;
+    }
+    .loader.done {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+    .loader-stage {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.25rem;
+    }
+    .loader-ring-wrap {
+      position: relative;
+      width: 160px;
+      height: 160px;
+    }
+    .loader-ring {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      transform: rotate(-90deg);
+    }
+    .loader-ring-track {
+      stroke: color-mix(in srgb, var(--spak-primary) 18%, transparent);
+    }
+    .loader-progress {
+      stroke: var(--spak-primary);
+      transition: stroke-dashoffset 0.05s linear;
+    }
+    .loader-orb {
+      position: absolute;
+      inset: 0;
+      margin: auto;
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 30%, color-mix(in srgb, var(--spak-primary) 70%, var(--spak-foreground) 30%) 0%, var(--spak-primary) 42%, color-mix(in srgb, var(--spak-primary) 22%, transparent) 72%, transparent 100%);
+      box-shadow: 0 0 44px color-mix(in srgb, var(--spak-primary) 55%, transparent), inset 0 0 22px rgba(255,255,255,0.16);
+      animation: loader-orb-breathe 2.4s ease-in-out infinite;
+    }
+    @keyframes loader-orb-breathe {
+      0%, 100% { transform: scale(1); opacity: .9; }
+      50% { transform: scale(1.12); opacity: 1; }
+    }
+    .loader-logotype {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--spak-primary);
+      letter-spacing: 0.6em;
+      text-indent: 0.6em;
+      opacity: 0;
+      animation: logotype-reveal 1.2s cubic-bezier(.22, 1, .36, 1) forwards;
+      animation-delay: 0.2s;
+    }
+    @keyframes logotype-reveal {
+      from { opacity: 0; letter-spacing: 0.9em; filter: blur(4px); }
+      to { opacity: 1; letter-spacing: 0.28em; filter: blur(0); }
+    }
+    .loader-number {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--spak-primary);
+      letter-spacing: 0.04em;
+      line-height: 1;
+      font-variant-numeric: tabular-nums;
+    }
+    .count-up { font-variant-numeric: tabular-nums; }
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity .8s cubic-bezier(.22, 1, .36, 1), transform .8s cubic-bezier(.22, 1, .36, 1);
+    }
+    .reveal.in-view {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .mobile-menu {
+      position: fixed;
+      inset: 0;
+      z-index: 70;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2rem;
+      background: color-mix(in srgb, var(--spak-background) 96%, transparent);
+      backdrop-filter: blur(16px);
+      transition: opacity .35s ease, visibility .35s;
+    }
+    .mobile-menu.hidden-menu {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .loader { display: none !important; }
+      .hero-orb img { animation: none; }
+      .reveal { opacity: 1; transform: none; transition: none; }
+      .magnetic-track { transition: none; }
+      .mobile-menu { transition: none; }
+      .loader-orb { animation: none; }
+      .loader-logotype { animation: none; opacity: 1; letter-spacing: 0.28em; filter: blur(0); }
+    }
+  </style>
+
+  <div id="loader" class="loader" aria-hidden="true">
+    <div class="loader-stage">
+      <div class="loader-ring-wrap">
+        <svg class="loader-ring" viewBox="0 0 120 120" aria-hidden="true">
+          <circle class="loader-ring-track" cx="60" cy="60" r="54" fill="none" stroke-width="2" />
+          <circle id="loader-progress" class="loader-progress" cx="60" cy="60" r="54" fill="none" stroke-width="2" stroke-linecap="round" style="stroke-dasharray: 339.292; stroke-dashoffset: 339.292;" />
+        </svg>
+        <div class="loader-orb"></div>
+      </div>
+      <div class="loader-logotype">SPAK</div>
+      <div class="loader-number"><span id="loader-number">0</span><span class="loader-percent">%</span></div>
+    </div>
+  </div>
+
+  <nav class="nav-glass">
+    <div class="max-w-[1200px] mx-auto px-6 h-16 flex items-center justify-between">
+      <a href="#hero" class="text-xl font-bold tracking-[0.12em] text-foreground">SPAK</a>
+      <div class="hidden md:flex items-center gap-8">
+        <a href="#features" class="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"><span class="en">Ecosystem</span><span class="zh">生态系统</span></a>
+        <a href="#vault" class="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"><span class="en">Vault</span><span class="zh">金库</span></a>
+        <a href="#metrics" class="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"><span class="en">Network</span><span class="zh">网络</span></a>
+        <a href="#footer" class="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"><span class="en">Docs</span><span class="zh">文档</span></a>
+      </div>
+      <div class="flex items-center gap-3">
+        <button class="lang-toggle" aria-label="Switch language"><span class="en">EN / 中文</span><span class="zh">EN / 中文</span></button>
+        <a href="#hero" class="hidden md:inline-flex items-center justify-center rounded-full px-5 py-2 text-sm font-semibold border border-primary text-primary hover:bg-primary hover:text-primary-foreground transition-colors"><span class="en">Open OS</span><span class="zh">打开系统</span></a>
+        <button id="menu-toggle" class="md:hidden inline-flex items-center justify-center w-10 h-10 rounded-md border border-border text-foreground" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+          <i data-lucide="menu" class="w-5 h-5"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <div id="mobile-menu" class="mobile-menu hidden-menu md:hidden" aria-hidden="true">
+    <button id="menu-close" class="absolute top-4 right-6 inline-flex items-center justify-center w-10 h-10 rounded-md border border-border text-foreground" aria-label="Close menu">
+      <i data-lucide="x" class="w-5 h-5"></i>
+    </button>
+    <button class="lang-toggle mb-2" aria-label="Switch language"><span class="en">EN / 中文</span><span class="zh">EN / 中文</span></button>
+    <a href="#features" class="text-2xl font-medium text-foreground hover:text-primary transition-colors mobile-link"><span class="en">Ecosystem</span><span class="zh">生态系统</span></a>
+    <a href="#vault" class="text-2xl font-medium text-foreground hover:text-primary transition-colors mobile-link"><span class="en">Vault</span><span class="zh">金库</span></a>
+    <a href="#metrics" class="text-2xl font-medium text-foreground hover:text-primary transition-colors mobile-link"><span class="en">Network</span><span class="zh">网络</span></a>
+    <a href="#footer" class="text-2xl font-medium text-foreground hover:text-primary transition-colors mobile-link"><span class="en">Docs</span><span class="zh">文档</span></a>
+    <a href="#hero" class="mt-4 inline-flex items-center justify-center rounded-full px-8 py-3 text-base font-semibold border border-primary text-primary hover:bg-primary hover:text-primary-foreground transition-colors mobile-link"><span class="en">Open OS</span><span class="zh">打开系统</span></a>
+  </div>
+
+  <section id="hero" class="hero px-6">
+    <div class="hero-orb">
+      <img src="../assets/hero-orb.jpg" alt="Metallic golden orb" />
+    </div>
+    <div class="relative z-10 max-w-[1100px] mx-auto text-center pt-20">
+      <p class="mb-6 text-xs md:text-sm font-semibold uppercase tracking-[0.22em] text-primary"><span class="en">The Native OS for the Open Economy</span><span class="zh">开放经济的原生系统</span></p>
+      <h1 class="text-[clamp(48px,7vw,112px)] font-bold leading-[0.92] tracking-[-0.04em] text-foreground text-balance"><span class="en">NATIVE. OPEN. YOURS.</span><span class="zh">原生。开放。属于你。</span></h1>
+      <p class="mt-6 md:mt-8 text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto text-balance"><span class="en">Spak is a modular operating system for ownership: identity, assets, apps, and incentives unified on one native stack.</span><span class="zh">Spak 是一套面向所有权的模块化操作系统：身份、资产、应用与激励，全部集成在同一原生栈上。</span></p>
+      <div class="mt-10 md:mt-12">
+        <a href="#manifesto" class="magnetic-btn">
+          <span class="magnetic-track">
+            <span><span class="en">Explore the OS</span><span class="zh">探索系统</span></span>
+            <span><span class="en">Explore the OS</span><span class="zh">探索系统</span></span>
+          </span>
+          <i data-lucide="arrow-right" class="w-5 h-5"></i>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section id="manifesto" class="px-6 py-24 md:py-36 bg-background">
+    <div class="max-w-[1200px] mx-auto grid md:grid-cols-2 gap-12 md:gap-20 items-start">
+      <h2 class="reveal text-3xl md:text-5xl lg:text-6xl font-bold leading-[1.05] tracking-[-0.03em] text-foreground text-balance"><span class="en">An OS where users are owners.</span><span class="zh">用户即拥有者的操作系统</span></h2>
+      <div class="reveal">
+        <p class="text-lg md:text-xl text-muted-foreground leading-relaxed text-balance"><span class="en">Spak is building the ownership layer for the open internet. We believe identity, data, and digital assets should live under user control — portable across apps, verifiable on-chain, and composable by default.</span><span class="zh">Spak 正在为开放互联网构建所有权层。我们相信，身份、数据与数字资产应由用户掌控——可在应用间携带、链上可验证、默认可组合。</span></p>
+        <p class="mt-6 text-base text-muted-foreground leading-relaxed"><span class="en">From wallets to dApps, every module on the OS accrues real utility. No walled gardens. No extracted attention. Just a native stack designed for the people who make the network alive.</span><span class="zh">从钱包到去中心化应用，操作系统上的每个模块都在积累真实效用。没有封闭花园，没有注意力剥削。只有一个为网络注入生命力的人们而设计的原生栈。</span></p>
+      </div>
+    </div>
+  </section>
+
+  <section id="features" class="px-6 py-24 md:py-32 bg-background">
+    <div class="max-w-[1200px] mx-auto">
+      <div class="mb-12 md:mb-16">
+        <p class="text-xs font-semibold uppercase tracking-[0.2em] text-primary mb-3"><span class="en">System Modules</span><span class="zh">系统模块</span></p>
+        <h2 class="text-3xl md:text-5xl font-bold tracking-[-0.03em] text-foreground"><span class="en">Built as an OS</span><span class="zh">以操作系统为架构</span></h2>
+      </div>
+      <div class="grid md:grid-cols-2 gap-6">
+        <article class="reveal group relative md:row-span-2 overflow-hidden rounded-lg border border-border bg-card hover:scale-[1.02] transition-transform duration-500">
+          <div class="aspect-[4/5] md:aspect-auto md:h-full overflow-hidden">
+            <img src="../assets/feature-play.jpg" alt="Native applications" class="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-700" />
+          </div>
+          <div class="absolute inset-x-0 bottom-0 p-8 bg-gradient-to-t from-background via-background/80 to-transparent">
+            <h3 class="text-2xl md:text-3xl font-bold text-foreground mb-2"><span class="en">Native apps</span><span class="zh">原生应用</span></h3>
+            <p class="text-muted-foreground max-w-md"><span class="en">Build, launch, and run apps directly on the Spak OS stack — sovereign by default.</span><span class="zh">直接在 Spak OS 栈上构建、发布并运行应用——默认即主权。</span></p>
+          </div>
+        </article>
+        <article class="reveal group relative overflow-hidden rounded-lg border border-border bg-card hover:scale-[1.02] transition-transform duration-500">
+          <div class="aspect-video overflow-hidden">
+            <img src="../assets/feature-earn.jpg" alt="Open protocol" class="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-700" />
+          </div>
+          <div class="absolute inset-x-0 bottom-0 p-6 bg-gradient-to-t from-background via-background/80 to-transparent">
+            <h3 class="text-xl md:text-2xl font-bold text-foreground mb-1"><span class="en">Open protocol</span><span class="zh">开放协议</span></h3>
+            <p class="text-muted-foreground"><span class="en">A shared kernel for identity, assets, and incentives that any module can compose.</span><span class="zh">身份、资产与激励的共享内核，任何模块都可以自由组合。</span></p>
+          </div>
+        </article>
+        <article class="reveal group relative overflow-hidden rounded-lg border border-border bg-card hover:scale-[1.02] transition-transform duration-500">
+          <div class="aspect-video overflow-hidden">
+            <img src="../assets/feature-collect.jpg" alt="Self-sovereign identity" class="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-700" />
+          </div>
+          <div class="absolute inset-x-0 bottom-0 p-6 bg-gradient-to-t from-background via-background/80 to-transparent">
+            <h3 class="text-xl md:text-2xl font-bold text-foreground mb-1"><span class="en">Self-sovereign ID</span><span class="zh">自主身份</span></h3>
+            <p class="text-muted-foreground"><span class="en">One portable identity and wallet that moves with you across the ecosystem.</span><span class="zh">一个可携带的身份与钱包，随你穿梭于整个生态系统。</span></p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="vault" class="px-6 py-24 md:py-36 bg-card">
+    <div class="max-w-[1200px] mx-auto">
+      <div class="max-w-3xl mb-16 md:mb-20">
+        <p class="text-xs font-semibold uppercase tracking-[0.2em] text-primary mb-3"><span class="en">The Vault</span><span class="zh">金库</span></p>
+        <h2 class="text-4xl md:text-6xl lg:text-7xl font-bold tracking-[-0.04em] text-foreground mb-6"><span class="en">The Vault</span><span class="zh">金库</span></h2>
+        <p class="text-lg md:text-xl text-muted-foreground leading-relaxed"><span class="en">The economic engine of the Spak OS. Stake, earn, and unlock protocol incentives across every connected module.</span><span class="zh">Spak OS 的经济引擎。质押、赚取，并在每一个连接模块中解锁协议激励。</span></p>
+      </div>
+      <div class="grid sm:grid-cols-3 gap-8 md:gap-12">
+        <div class="reveal">
+          <p class="text-4xl md:text-6xl font-bold text-primary">
+            <span class="en"><span class="count-up" data-target="3600000" data-prefix="$" data-format="compact">$0</span></span>
+            <span class="zh"><span class="count-up" data-target="360" data-prefix="$" data-suffix="万" data-format="locale">$0万</span></span>
+          </p>
+          <p class="mt-2 text-sm font-medium uppercase tracking-wider text-muted-foreground"><span class="en">Total Value Locked</span><span class="zh">总锁仓价值</span></p>
+        </div>
+        <div class="reveal">
+          <p class="text-4xl md:text-6xl font-bold text-primary">
+            <span class="en"><span class="count-up" data-target="24000" data-suffix="+" data-format="locale">0+</span></span>
+            <span class="zh"><span class="count-up" data-target="24000" data-suffix="+" data-format="locale">0+</span></span>
+          </p>
+          <p class="mt-2 text-sm font-medium uppercase tracking-wider text-muted-foreground"><span class="en">Active Users</span><span class="zh">活跃用户</span></p>
+        </div>
+        <div class="reveal">
+          <p class="text-4xl md:text-6xl font-bold text-primary">
+            <span class="en"><span class="count-up" data-target="1050000" data-suffix="+" data-format="compact">0+</span></span>
+            <span class="zh"><span class="count-up" data-target="105" data-suffix="万+" data-format="locale">0万+</span></span>
+          </p>
+          <p class="mt-2 text-sm font-medium uppercase tracking-wider text-muted-foreground"><span class="en">On-chain Actions</span><span class="zh">链上操作</span></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="metrics" class="px-6 py-24 md:py-32 bg-background">
+    <div class="max-w-[1200px] mx-auto">
+      <p class="text-center text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground mb-10"><span class="en">Backed by the best in open systems and crypto</span><span class="zh">开放系统与加密领域顶尖机构支持</span></p>
+      <div class="flex flex-wrap justify-center gap-4 md:gap-6">
+        <span class="px-5 py-3 rounded-full border border-border text-sm font-semibold uppercase tracking-wider text-muted-foreground">A16Z CRYPTO</span>
+        <span class="px-5 py-3 rounded-full border border-border text-sm font-semibold uppercase tracking-wider text-muted-foreground">Paradigm</span>
+        <span class="px-5 py-3 rounded-full border border-border text-sm font-semibold uppercase tracking-wider text-muted-foreground">Dragonfly</span>
+        <span class="px-5 py-3 rounded-full border border-border text-sm font-semibold uppercase tracking-wider text-muted-foreground">Coinbase Ventures</span>
+        <span class="px-5 py-3 rounded-full border border-border text-sm font-semibold uppercase tracking-wider text-muted-foreground">Framework</span>
+      </div>
+      <div class="mt-20 md:mt-28 text-center reveal">
+        <h2 class="text-3xl md:text-5xl font-bold tracking-[-0.03em] text-foreground mb-6"><span class="en">Ready to run Spak?</span><span class="zh">准备好运行 Spak？</span></h2>
+        <p class="text-muted-foreground max-w-xl mx-auto mb-10"><span class="en">Join the native OS turning ownership into infrastructure.</span><span class="zh">加入将所有权转化为基础设施的原生操作系统。</span></p>
+        <a href="#hero" class="magnetic-btn">
+          <span class="magnetic-track">
+            <span><span class="en">Install the OS</span><span class="zh">安装系统</span></span>
+            <span><span class="en">Install the OS</span><span class="zh">安装系统</span></span>
+          </span>
+          <i data-lucide="arrow-right" class="w-5 h-5"></i>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <footer id="footer" class="px-6 py-16 md:py-24 border-t border-border bg-background">
+    <div class="max-w-[1200px] mx-auto grid sm:grid-cols-2 md:grid-cols-4 gap-10 md:gap-12">
+      <div>
+        <a href="#hero" class="text-xl font-bold tracking-[0.12em] text-foreground">SPAK</a>
+        <p class="mt-4 text-sm text-muted-foreground leading-relaxed"><span class="en">Native. Open. Yours. The operating system for the open economy.</span><span class="zh">原生。开放。属于你。面向开放经济的操作系统。</span></p>
+      </div>
+      <div>
+        <h4 class="text-sm font-semibold uppercase tracking-wider text-foreground mb-4"><span class="en">Product</span><span class="zh">产品</span></h4>
+        <ul class="space-y-3">
+          <li><a href="#features" class="text-sm text-muted-foreground hover:text-foreground transition-colors"><span class="en">Ecosystem</span><span class="zh">生态系统</span></a></li>
+          <li><a href="#vault" class="text-sm text-muted-foreground hover:text-foreground transition-colors"><span class="en">Vault</span><span class="zh">金库</span></a></li>
+          <li><a href="#metrics" class="text-sm text-muted-foreground hover:text-foreground transition-colors"><span class="en">Network</span><span class="zh">网络</span></a></li>
+          <li><a href="#manifesto" class="text-sm text-muted-foreground hover:text-foreground transition-colors"><span class="en">Roadmap</span><span class="zh">路线图</span></a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="text-sm font-semibold uppercase tracking-wider text-foreground mb-4"><span class="en">Resources</span><span class="zh">资源</span></h4>
+        <ul class="space-y-3">
+          <li><a href="#footer" class="text-sm text-muted-foreground hover:text-foreground transition-colors"><span class="en">Docs</span><span class="zh">文档</span></a></li>
+          <li><a href="https://github.com/spak" target="_blank" rel="noopener noreferrer" class="text-sm text-muted-foreground hover:text-foreground transition-colors">GitHub</a></li>
+          <li><a href="#footer" class="text-sm text-muted-foreground hover:text-foreground transition-colors"><span class="en">Brand</span><span class="zh">品牌</span></a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="text-sm font-semibold uppercase tracking-wider text-foreground mb-4"><span class="en">Community</span><span class="zh">社区</span></h4>
+        <ul class="space-y-3">
+          <li><a href="https://discord.gg/spak" target="_blank" rel="noopener noreferrer" class="text-sm text-muted-foreground hover:text-foreground transition-colors inline-flex items-center gap-2"><i data-lucide="message-circle" class="w-4 h-4"></i> Discord</a></li>
+          <li><a href="https://x.com/spak" target="_blank" rel="noopener noreferrer" class="text-sm text-muted-foreground hover:text-foreground transition-colors inline-flex items-center gap-2"><i data-lucide="twitter" class="w-4 h-4"></i> X</a></li>
+          <li><a href="https://t.me/spak" target="_blank" rel="noopener noreferrer" class="text-sm text-muted-foreground hover:text-foreground transition-colors inline-flex items-center gap-2"><i data-lucide="send" class="w-4 h-4"></i> Telegram</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="max-w-[1200px] mx-auto mt-16 pt-8 border-t border-border flex flex-col md:flex-row items-center justify-between gap-4">
+      <p class="text-xs text-muted-foreground"><span class="en">© 2026 Spak. All rights reserved.</span><span class="zh">© 2026 Spak. 保留所有权利。</span></p>
+      <div class="flex gap-6">
+        <a href="#footer" class="text-xs text-muted-foreground hover:text-foreground transition-colors"><span class="en">Privacy Policy</span><span class="zh">隐私政策</span></a>
+        <a href="#footer" class="text-xs text-muted-foreground hover:text-foreground transition-colors"><span class="en">Terms of Service</span><span class="zh">服务条款</span></a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (function() {
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const loader = document.getElementById('loader');
+      const loaderNumber = document.getElementById('loader-number');
+      const loaderProgress = document.getElementById('loader-progress');
+      const menuToggle = document.getElementById('menu-toggle');
+      const menuClose = document.getElementById('menu-close');
+      const mobileMenu = document.getElementById('mobile-menu');
+      const mobileLinks = mobileMenu.querySelectorAll('.mobile-link');
+      const langToggles = document.querySelectorAll('.lang-toggle');
+      const pageTitle = { en: 'Spak — Native OS for the Open Economy', zh: 'Spak — 开放经济的原生系统' };
+      const ringCircumference = 339.292;
+
+      function openMenu() {
+        mobileMenu.classList.remove('hidden-menu');
+        mobileMenu.setAttribute('aria-hidden', 'false');
+        menuToggle.setAttribute('aria-expanded', 'true');
+      }
+      function closeMenu() {
+        mobileMenu.classList.add('hidden-menu');
+        mobileMenu.setAttribute('aria-hidden', 'true');
+        menuToggle.setAttribute('aria-expanded', 'false');
+      }
+      menuToggle.addEventListener('click', openMenu);
+      menuClose.addEventListener('click', closeMenu);
+      mobileLinks.forEach(link => link.addEventListener('click', closeMenu));
+
+      function setLang(lang) {
+        document.body.classList.remove('lang-en', 'lang-zh');
+        document.body.classList.add('lang-' + lang);
+        document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
+        document.title = pageTitle[lang];
+      }
+      langToggles.forEach(btn => btn.addEventListener('click', () => {
+        const isZh = document.body.classList.contains('lang-zh');
+        setLang(isZh ? 'en' : 'zh');
+      }));
+
+      if (prefersReducedMotion) {
+        if (loader) loader.style.display = 'none';
+      } else {
+        let start = null;
+        const duration = 1800;
+        function easeOutQuart(t) { return 1 - Math.pow(1 - t, 4); }
+        function step(timestamp) {
+          if (!start) start = timestamp;
+          const progress = Math.min((timestamp - start) / duration, 1);
+          const value = Math.floor(easeOutQuart(progress) * 100);
+          if (loaderNumber) loaderNumber.textContent = value;
+          if (loaderProgress) loaderProgress.style.strokeDashoffset = ringCircumference * (1 - progress);
+          if (progress < 1) {
+            requestAnimationFrame(step);
+          } else {
+            if (loaderProgress) loaderProgress.style.strokeDashoffset = 0;
+            if (loader) loader.classList.add('done');
+            setTimeout(() => { if (loader) loader.style.display = 'none'; }, 700);
+          }
+        }
+        requestAnimationFrame(step);
+      }
+
+      const reveals = document.querySelectorAll('.reveal');
+      const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('in-view');
+            revealObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+      reveals.forEach(el => revealObserver.observe(el));
+
+      const countUps = document.querySelectorAll('.count-up');
+      const countObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const target = parseInt(entry.target.dataset.target, 10);
+            const prefix = entry.target.dataset.prefix || '';
+            const suffix = entry.target.dataset.suffix || '';
+            const formatType = entry.target.dataset.format || 'compact';
+            const duration = 1800;
+            let start = null;
+            function compact(n) {
+              if (n >= 1e9) return (n / 1e9).toFixed(2).replace(/\.?0+$/, '') + 'B';
+              if (n >= 1e6) return (n / 1e6).toFixed(2).replace(/\.?0+$/, '') + 'M';
+              if (n >= 1e3) return (n / 1e3).toFixed(0) + 'K';
+              return n.toLocaleString('en-US');
+            }
+            function format(n) {
+              if (formatType === 'locale') return prefix + n.toLocaleString('en-US') + suffix;
+              return prefix + compact(n) + suffix;
+            }
+            function easeOutQuart(t) { return 1 - Math.pow(1 - t, 4); }
+            function step(ts) {
+              if (!start) start = ts;
+              const p = Math.min((ts - start) / duration, 1);
+              const current = Math.floor(easeOutQuart(p) * target);
+              entry.target.textContent = format(current);
+              if (p < 1) requestAnimationFrame(step);
+              else entry.target.textContent = format(target);
+            }
+            requestAnimationFrame(step);
+            countObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.4 });
+      countUps.forEach(el => countObserver.observe(el));
+    })();
+  </script>
+</main>
+    <script>lucide.createIcons();</script>
+</body>
+</html>
