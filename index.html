@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <title>Spak — Native OS for the Open Economy</title>
+  <title>Spak — A Koishi-based Multi-file Service Framework</title>
   <link rel="icon" type="image/svg+xml" href="assets/spak.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -33,8 +33,8 @@
   <script>
     // ===== Page titles (per language) =====
     const PAGE_TITLE = {
-      en: 'Spak — Native OS for the Open Economy',
-      zh: 'Spak — 开放经济的原生系统'
+      en: 'Spak — A Koishi-based Multi-file Service Framework',
+      zh: 'Spak — 基于 Koishi 的多文件服务项目框架'
     }
 
     // ===== Islands configuration =====
@@ -44,6 +44,7 @@
       { id: 'features',     file: 'islands/features.html' },
       { id: 'projects',     file: 'islands/projects.html' },
       { id: 'project-list', file: 'islands/project-list.html' },
+      { id: 'docs',         file: 'islands/docs.html' },
       { id: 'about-page',   file: 'islands/about-page.html' },
       { id: 'footer',       file: 'islands/footer.html' },
     ]
@@ -51,13 +52,15 @@
     // ===== Page definitions (hash-based routing) =====
     const pages = {
       home:     { show: ['hero', 'features', 'projects'], hash: '',            name: { en: 'Home',     zh: '首页' } },
-      projects: { show: ['project-list'],                  hash: 'projects',    name: { en: 'Projects', zh: '项目' } },
+      projects: { show: ['project-list'],                  hash: 'projects',    name: { en: 'Packages', zh: '包' } },
+      docs:     { show: ['docs'],                          hash: 'docs',        name: { en: 'Docs',     zh: '文档' } },
       about:    { show: ['about-page'],                    hash: 'about',       name: { en: 'About',    zh: '关于' } },
     }
 
     function getPageFromHash() {
       const hash = window.location.hash.replace('#/', '').replace('#', '')
       if (hash === 'projects') return 'projects'
+      if (hash === 'docs')     return 'docs'
       if (hash === 'about')    return 'about'
       return 'home'
     }

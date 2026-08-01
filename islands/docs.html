@@ -1,0 +1,247 @@
+<section class="section page-header">
+  <div class="container">
+    <p class="section-kicker reveal" style="text-align:center">
+      <span class="en">Documentation</span>
+      <span class="zh">文档</span>
+    </p>
+    <h1 class="section-title reveal" style="text-align:center">
+      <span class="en">Read the Source of Truth</span>
+      <span class="zh">阅读真实文档</span>
+    </h1>
+    <p class="section-desc reveal">
+      <span class="en">Everything below is mirrored from the spak GitHub repository — no fabricated metrics, just real docs.</span>
+      <span class="zh">下方内容全部镜像自 spak GitHub 仓库——没有捏造的指标，只有真实文档。</span>
+    </p>
+  </div>
+</section>
+
+<section class="section" style="padding-top:0">
+  <div class="container">
+
+    <div class="docs-nav reveal" style="display:flex;flex-wrap:wrap;gap:8px 12px;margin-bottom:32px;position:sticky;top:80px;z-index:5;background:var(--spak-background);padding:12px 0;border-bottom:1px solid var(--spak-border)">
+      <a href="#doc-quickstart" class="chip-link" data-scroll><span class="en">Quick Start</span><span class="zh">快速开始</span></a>
+      <a href="#doc-cli" class="chip-link" data-scroll><span class="en">CLI</span><span class="zh">命令行</span></a>
+      <a href="#doc-config" class="chip-link" data-scroll><span class="en">Config</span><span class="zh">配置</span></a>
+      <a href="#doc-architecture" class="chip-link" data-scroll><span class="en">Architecture</span><span class="zh">架构</span></a>
+      <a href="#doc-logging" class="chip-link" data-scroll><span class="en">Logging</span><span class="zh">日志</span></a>
+      <a href="#doc-security" class="chip-link" data-scroll><span class="en">Security (CPC)</span><span class="zh">安全 (CPC)</span></a>
+    </div>
+
+    <article id="doc-quickstart" class="about-card reveal" style="scroll-margin-top:120px">
+      <div class="about-icon"><span class="material-symbols-outlined">rocket_launch</span></div>
+      <h2><span class="en">Quick Start</span><span class="zh">快速开始</span></h2>
+      <div class="about-text">
+        <p>
+          <span class="en"><strong>Prerequisites</strong>: Node.js ≥ 18, pnpm ≥ 10.</span>
+          <span class="zh"><strong>前置依赖</strong>：Node.js ≥ 18，pnpm ≥ 10。</span>
+        </p>
+        <p>
+          <span class="en">Install dependencies and build all packages:</span>
+          <span class="zh">安装依赖并构建所有包：</span>
+        </p>
+<pre class="code-block"><code>pnpm install
+pnpm build</code></pre>
+        <p>
+          <span class="en">Then run:</span>
+          <span class="zh">然后启动：</span>
+        </p>
+<pre class="code-block"><code>spak serve                    # Start the application
+spak serve ./spak.config.yml  # Or specify a config file
+spak serve status             # Check runtime status
+spak serve --stop             # Stop the running instance</code></pre>
+      </div>
+    </article>
+
+    <article id="doc-cli" class="about-card reveal" style="scroll-margin-top:120px;margin-top:32px">
+      <div class="about-icon"><span class="material-symbols-outlined">terminal</span></div>
+      <h2><span class="en">CLI Commands</span><span class="zh">CLI 命令</span></h2>
+      <div class="about-text">
+        <p>
+          <span class="en">Spak ships a <code>spak</code> binary via <code>@spakjs/cli</code>. All outputs are colorized and human-friendly.</span>
+          <span class="zh">Spak 通过 <code>@spakjs/cli</code> 提供 <code>spak</code> 可执行文件，所有输出均为彩色人类友好格式。</span>
+        </p>
+<pre class="code-block"><code># Configuration management (persists to ~/.spak/config.json)
+spak config get &lt;key&gt;
+spak config set &lt;key&gt; &lt;value&gt;
+spak config list
+
+# Switch UI language
+spak config set language zh   # switch to Chinese
+spak config set language en   # switch back to English
+
+# Plugin security checks (CPC) — requires cpc.enabled: true
+spak cpc check
+spak cpc status
+spak cpc sandbox &lt;plugin-name&gt;
+spak cpc circuit &lt;plugin-name&gt;</code></pre>
+      </div>
+    </article>
+
+    <article id="doc-config" class="about-card reveal" style="scroll-margin-top:120px;margin-top:32px">
+      <div class="about-icon"><span class="material-symbols-outlined">settings</span></div>
+      <h2><span class="en">Configuration</span><span class="zh">配置文件</span></h2>
+      <div class="about-text">
+        <p>
+          <span class="en">Create <strong>spak.config.yml</strong> in your project root. Example from the spak repo itself:</span>
+          <span class="zh">在项目根目录创建 <strong>spak.config.yml</strong>。下方示例直接来自 spak 仓库本身：</span>
+        </p>
+<pre class="code-block"><code>name: spak-test
+plugins:
+  '@spakjs/plugin-server':
+    host: 0.0.0.0
+    port: 4321
+  '@spakjs/plugin-http': null
+  '@spakjs/plugin-daemon':
+    enabled: true
+    logFile: spak.log</code></pre>
+        <p>
+          <span class="en">The loader supports variable interpolation (<code>${{ env.XXX }}</code>, <code>${{ pkg.version }}</code>) and <code>$if</code> conditional loading (booleans, literals, interpolated truthiness all work).</span>
+          <span class="zh">loader 支持变量插值（<code>${{ env.XXX }}</code>、<code>${{ pkg.version }}</code>）与 <code>$if</code> 条件加载（boolean、字面量、插值后的真假均可正确判断）。</span>
+        </p>
+      </div>
+    </article>
+
+    <article id="doc-architecture" class="about-card reveal" style="scroll-margin-top:120px;margin-top:32px">
+      <div class="about-icon"><span class="material-symbols-outlined">account_tree</span></div>
+      <h2><span class="en">Architecture</span><span class="zh">架构</span></h2>
+      <div class="about-text">
+        <p>
+          <span class="en"><strong>core is the engine, spak is the assembled car.</strong> You can use <code>@spakjs/core</code> alone, or <code>import { createApp } from 'spak'</code> for the whole thing.</span>
+          <span class="zh"><strong>core 是引擎，spak 是把引擎装配好交付的整车。</strong>你可以单独用 <code>@spakjs/core</code>，也可以直接 <code>import { createApp } from 'spak'</code> 一行起步。</span>
+        </p>
+<pre class="code-block"><code>                       spak (Facade / 整车入口)
+                              │ re-exports
+  ┌────────────┬──────────────┼──────────────┬──────────────┐
+  │            │              │              │              │
+ CLI        Plugins        Loader         Config         I18n
+spak-cli   daemon/hmr/     NodeJS         ~/.spak/      LocaleTree
+           server/http     yml+fork       JSON store    + T()
+  │            │              │              │              │
+  └────────────┴──────────────┴──────────────┴──────────────┘
+                              │
+                         @spakjs/core
+                  Context / Commander / Middleware
+                  Permissions / Schema / I18n render
+                  Session / Filter
+                              │
+              ┌───────────────┴───────────────┐
+        @spakjs/util                      @spakjs/message
+        纯函数（零副作用）                  h()/Fragment（零副作用）
+                              │
+                         @spakjs/log
+                  多 transport logger（Node 层）</code></pre>
+        <p>
+          <span class="en">Layering rule: dependency direction is always top-right → bottom-left. No <code>@spakjs/*</code> package may <code>import 'spak'</code>.</span>
+          <span class="zh">分层铁律：依赖方向永远「右上 → 左下」，任何 <code>@spakjs/*</code> 包都不得 <code>import 'spak'</code>。</span>
+        </p>
+        <p>
+          <span class="en">Entry points:</span>
+          <span class="zh">入口选择：</span>
+        </p>
+        <ul style="margin:8px 0 16px 20px;line-height:1.8">
+          <li><code>import { createApp } from 'spak'</code> — <span class="en">full car</span><span class="zh">完整整车</span></li>
+          <li><code>import { Context } from '@spakjs/core'</code> — <span class="en">kernel only</span><span class="zh">只要内核跑命令系统</span></li>
+          <li><code>import { h } from '@spakjs/message'</code> — <span class="en">8KB, no cordis dep</span><span class="zh">8KB，无 cordis 依赖</span></li>
+          <li><code>import { createLogger } from '@spakjs/log'</code> — <span class="en">zero third-party deps</span><span class="zh">零第三方依赖</span></li>
+        </ul>
+      </div>
+      <div class="about-divider"></div>
+      <div class="about-info">
+        <div class="info-item">
+          <span class="info-label"><span class="en">Source</span><span class="zh">源文件</span></span>
+          <span class="info-value"><a href="https://github.com/starpak/spak/blob/main/docs/architecture.md" target="_blank" rel="noopener noreferrer">docs/architecture.md →</a></span>
+        </div>
+        <div class="info-item">
+          <span class="info-label"><span class="en">Module Rules</span><span class="zh">模块条例</span></span>
+          <span class="info-value"><a href="https://github.com/starpak/spak/blob/main/MODULE_DIVISION.md" target="_blank" rel="noopener noreferrer">MODULE_DIVISION.md →</a></span>
+        </div>
+      </div>
+    </article>
+
+    <article id="doc-logging" class="about-card reveal" style="scroll-margin-top:120px;margin-top:32px">
+      <div class="about-icon"><span class="material-symbols-outlined">receipt_long</span></div>
+      <h2><span class="en">Logging — @spakjs/log</span><span class="zh">日志 — @spakjs/log</span></h2>
+      <div class="about-text">
+        <p>
+          <span class="en">A multi-transport structured logger. Zero third-party deps, Node environment (file transport needs <code>fs</code>). Does NOT depend on <code>@spakjs/core</code> — any project can use it independently.</span>
+          <span class="zh">多 transport 的结构化日志包。零第三方依赖，Node 环境（file transport 需要 <code>fs</code>）。不依赖 <code>@spakjs/core</code>，可被任何项目独立使用。</span>
+        </p>
+<pre class="code-block"><code>import { createLogger, configureLogger, FileTransport, ConsoleTransport, LogLevel } from '@spakjs/log'
+
+configureLogger({
+  level: LogLevel.debug,
+  transports: [
+    new ConsoleTransport(),
+    new FileTransport({ path: 'app.log', maxSize: 5 * 1024 * 1024 }),
+  ],
+})
+
+const log = createLogger('my-scope')
+log.info('服务启动', { port: 3000 })
+log.warn('内存偏高', { rss: '420MB' })
+log.error('请求失败', new Error('timeout'))</code></pre>
+        <p>
+          <span class="en">Log levels: <code>silent(0)</code>, <code>error(1)</code>, <code>warn(2)</code>, <code>info(3)</code>, <code>debug(4)</code>, <code>trace(5)</code>. Global level + per-transport level filter together.</span>
+          <span class="zh">日志级别：<code>silent(0)</code>、<code>error(1)</code>、<code>warn(2)</code>、<code>info(3)</code>、<code>debug(4)</code>、<code>trace(5)</code>。全局 level 与各 transport 独立 level 共同过滤。</span>
+        </p>
+        <p>
+          <span class="en">Transports: <strong>ConsoleTransport</strong> (colored, stderr for warn/error), <strong>FileTransport</strong> (append + auto-rotate by maxSize, silent on write failure), <strong>StreamTransport</strong> (any <code>write(str)</code> target).</span>
+          <span class="zh">Transport：<strong>ConsoleTransport</strong>（染色，warn/error 走 stderr）、<strong>FileTransport</strong>（追加写 + 按 maxSize 时间戳重命名轮转，写入失败静默吞掉）、<strong>StreamTransport</strong>（任意带 <code>write(str)</code> 的对象）。</span>
+        </p>
+        <p>
+          <span class="en">Bridge cordis Logger via <code>attachCordis({ Logger: CordisLogger })</code> — best-effort, safely no-ops if cordis contract changes.</span>
+          <span class="zh">通过 <code>attachCordis({ Logger: CordisLogger })</code> 桥接 cordis Logger——best-effort，cordis 契约变更时安全 no-op。</span>
+        </p>
+      </div>
+      <div class="about-divider"></div>
+      <div class="about-info">
+        <div class="info-item">
+          <span class="info-label"><span class="en">Source</span><span class="zh">源文件</span></span>
+          <span class="info-value"><a href="https://github.com/starpak/spak/blob/main/docs/logging.md" target="_blank" rel="noopener noreferrer">docs/logging.md →</a></span>
+        </div>
+        <div class="info-item">
+          <span class="info-label"><span class="en">Package</span><span class="zh">npm 包</span></span>
+          <span class="info-value">@spakjs/log@0.0.1</span>
+        </div>
+      </div>
+    </article>
+
+    <article id="doc-security" class="about-card reveal" style="scroll-margin-top:120px;margin-top:32px">
+      <div class="about-icon"><span class="material-symbols-outlined">shield</span></div>
+      <h2><span class="en">Security — CPC</span><span class="zh">安全 — CPC</span></h2>
+      <div class="about-text">
+        <p>
+          <span class="en">CPC (Check Plug-in Collection) is the <strong>only</strong> module responsible for plugin security. Located in <code>packages/spak-cli/src/commands/cpc.ts</code>, invoked via <code>spak cpc &lt;subcommand&gt;</code>, requires <code>cpc.enabled: true</code> in spak.config.yml.</span>
+          <span class="zh">CPC（Check Plug-in Collection）是仓库内<strong>唯一</strong>负责插件安全措施的模块，位于 <code>packages/spak-cli/src/commands/cpc.ts</code>，通过 <code>spak cpc &lt;subcommand&gt;</code> 调用，需在 spak.config.yml 里 <code>cpc.enabled: true</code> 才可用。</span>
+        </p>
+        <p>
+          <span class="en">Capabilities (honestly documented status):</span>
+          <span class="zh">能力清单（如实标注的状态）：</span>
+        </p>
+        <ul style="margin:8px 0 16px 20px;line-height:1.9">
+          <li><strong>Plugin Check</strong> — <span style="color:var(--spak-primary)">✓</span> <span class="en">usable</span><span class="zh">可用</span> — <span class="en">validates package structure, main entry, deps integrity</span><span class="zh">校验包结构、main 入口、依赖完整性</span></li>
+          <li><strong>Sandbox</strong> — <span style="color:var(--spak-ink-2)">⚠</span> <span class="en">partial</span><span class="zh">部分</span> — <span class="en">detached child process shell, but target plugin not actually loaded yet</span><span class="zh">detached 子进程壳已就位，但尚未真正加载运行目标插件代码</span></li>
+          <li><strong>SSetPS</strong> — <span style="color:var(--spak-primary)">✓</span> <span class="en">usable</span><span class="zh">可用</span> — <span class="en">samples RSS every 10s, warns at 80% of 512MB, tries global.gc()</span><span class="zh">每 10s 采样 RSS，超 512MB 上限的 80% 告警，并尝试 global.gc()</span></li>
+          <li><strong>Circuit Breaker</strong> — <span style="color:var(--spak-ink-2)">⚠</span> <span class="en">partial</span><span class="zh">部分</span> — <span class="en">state map exists, no runtime path consumes it yet</span><span class="zh">熔断状态表已维护，但目前无运行时路径读取该表拦截插件</span></li>
+          <li><strong>Firewall</strong> — <span style="color:var(--spak-ink-2)">⚠</span> <span class="en">stub</span><span class="zh">占位</span> — <span class="en">console.log only, no real allow/deny</span><span class="zh">仅 console.log，无真实 allow/deny 拦截</span></li>
+        </ul>
+        <p>
+          <span class="en">This honest "what's done vs stubbed" table is lifted verbatim from <code>docs/security.md</code>. We don't pretend partial features are production-ready.</span>
+          <span class="zh">这张"已完成 vs 占位"对照表逐字摘自 <code>docs/security.md</code>。我们不会把部分实现假装成生产可用。</span>
+        </p>
+      </div>
+      <div class="about-divider"></div>
+      <div class="about-info">
+        <div class="info-item">
+          <span class="info-label"><span class="en">Source</span><span class="zh">源文件</span></span>
+          <span class="info-value"><a href="https://github.com/starpak/spak/blob/main/docs/security.md" target="_blank" rel="noopener noreferrer">docs/security.md →</a></span>
+        </div>
+        <div class="info-item">
+          <span class="info-label"><span class="en">Known Gaps</span><span class="zh">已知缺陷</span></span>
+          <span class="info-value"><span class="en">5 items</span><span class="zh">5 项</span></span>
+        </div>
+      </div>
+    </article>
+
+  </div>
+</section>

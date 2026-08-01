@@ -2,17 +2,17 @@
   <div class="container">
     <div class="manifesto-grid">
       <h2 class="reveal">
-        <span class="en">An OS where users are owners.</span>
-        <span class="zh">用户即拥有者的操作系统</span>
+        <span class="en">Core is the engine. Spak is the assembled car.</span>
+        <span class="zh">core 是引擎，spak 是装配好交付的整车</span>
       </h2>
       <div class="reveal">
         <p class="leading-relaxed">
-          <span class="en">Spak is building the ownership layer for the open internet. We believe identity, data, and digital assets should live under user control — portable across apps, verifiable on-chain, and composable by default.</span>
-          <span class="zh">Spak 正在为开放互联网构建所有权层。我们相信，身份、数据与数字资产应由用户掌控——可在应用间携带、链上可验证、默认可组合。</span>
+          <span class="en">Spak is a multi-file service project framework built on top of Koishi. It organizes plugin-based applications with structured support for configuration management, internationalization, CLI tooling, service orchestration, and an independent logging system.</span>
+          <span class="zh">Spak 是一款基于 Koishi 的多文件服务项目框架。它以结构化的方式组织插件化应用，内置配置管理、国际化、CLI 工具链、服务编排与独立日志系统。</span>
         </p>
         <p>
-          <span class="en">From wallets to dApps, every module on the OS accrues real utility. No walled gardens. No extracted attention. Just a native stack designed for the people who make the network alive.</span>
-          <span class="zh">从钱包到去中心化应用，操作系统上的每个模块都在积累真实效用。没有封闭花园，没有注意力剥削。只有一个为网络注入生命力的人们而设计的原生栈。</span>
+          <span class="en">Built with TypeScript and a pnpm monorepo architecture — 8 hand-crafted core packages and 4 official plugins. Use just the engine via @spakjs/core, or import { createApp } from 'spak' for the whole car.</span>
+          <span class="zh">采用 TypeScript 编写，基于 pnpm monorepo 架构——8 个精心打造的核心包与 4 个官方插件。可以单独用 @spakjs/core 引擎，也可以直接 import { createApp } from 'spak' 一行起步。</span>
         </p>
       </div>
     </div>
@@ -23,52 +23,52 @@
   <div class="container">
     <div style="margin-bottom:56px;text-align:left;max-width:1200px;margin-left:auto;margin-right:auto">
       <p class="section-kicker reveal">
-        <span class="en">System Modules</span>
-        <span class="zh">系统模块</span>
+        <span class="en">Core Capabilities</span>
+        <span class="zh">核心能力</span>
       </p>
       <h2 class="section-heading reveal">
-        <span class="en">Built as an OS</span>
-        <span class="zh">以操作系统为架构</span>
+        <span class="en">Built as a Framework</span>
+        <span class="zh">以框架为架构</span>
       </h2>
     </div>
 
     <div class="feature-grid">
       <article class="feature-card-large reveal group">
-        <img src="assets/feature-play.jpg" alt="Native applications" class="feature-img" />
+        <img src="assets/feature-play.jpg" alt="Command & middleware" class="feature-img" />
         <div class="feature-overlay">
           <h3>
-            <span class="en">Native apps</span>
-            <span class="zh">原生应用</span>
+            <span class="en">Command & Middleware</span>
+            <span class="zh">命令与中间件</span>
           </h3>
           <p>
-            <span class="en">Build, launch, and run apps directly on the Spak OS stack — sovereign by default.</span>
-            <span class="zh">直接在 Spak OS 栈上构建、发布并运行应用——默认即主权。</span>
+            <span class="en">A typed Commander with parser and validator, plus a middleware processor for the full request pipeline.</span>
+            <span class="zh">带类型声明的 Commander（含 parser 与 validator），以及处理完整请求管道的中间件 Processor。</span>
           </p>
         </div>
       </article>
       <article class="feature-card reveal group">
-        <img src="assets/feature-earn.jpg" alt="Open protocol" class="feature-img" />
+        <img src="assets/feature-earn.jpg" alt="Multi-transport logging" class="feature-img" />
         <div class="feature-overlay">
           <h3>
-            <span class="en">Open protocol</span>
-            <span class="zh">开放协议</span>
+            <span class="en">Multi-transport Logger</span>
+            <span class="zh">多通道日志</span>
           </h3>
           <p>
-            <span class="en">A shared kernel for identity, assets, and incentives that any module can compose.</span>
-            <span class="zh">身份、资产与激励的共享内核，任何模块都可以自由组合。</span>
+            <span class="en">@spakjs/log ships Console/File/Stream transports with auto-rotating files and zero third-party deps.</span>
+            <span class="zh">@spakjs/log 提供 Console/File/Stream 三个 transport，文件按大小自动轮转，零第三方依赖。</span>
           </p>
         </div>
       </article>
       <article class="feature-card reveal group">
-        <img src="assets/feature-collect.jpg" alt="Self-sovereign identity" class="feature-img" />
+        <img src="assets/feature-collect.jpg" alt="i18n & config" class="feature-img" />
         <div class="feature-overlay">
           <h3>
-            <span class="en">Self-sovereign ID</span>
-            <span class="zh">自主身份</span>
+            <span class="en">i18n & Config</span>
+            <span class="zh">国际化与配置</span>
           </h3>
           <p>
-            <span class="en">One portable identity and wallet that moves with you across the ecosystem.</span>
-            <span class="zh">一个可携带的身份与钱包，随你穿梭于整个生态系统。</span>
+            <span class="en">LocaleTree with fallback algorithm, YAML translation loader, T() helper, and a persistent ~/.spak/config.json store.</span>
+            <span class="zh">LocaleTree 回退算法、YML 翻译加载器、T() 助手，以及持久化的 ~/.spak/config.json 用户级配置。</span>
           </p>
         </div>
       </article>

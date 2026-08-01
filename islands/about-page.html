@@ -5,8 +5,8 @@
       <span class="zh">关于 Spak</span>
     </p>
     <h1 class="section-title reveal" style="text-align:center">
-      <span class="en">The Ownership Stack</span>
-      <span class="zh">所有权技术栈</span>
+      <span class="en">The Plugin Framework</span>
+      <span class="zh">插件化框架</span>
     </h1>
     <p class="section-desc reveal">
       <span class="en">A multi-file service project framework based on Koishi — built for teams who ship quality.</span>
@@ -58,7 +58,7 @@
             <span class="en">Founded</span>
             <span class="zh">成立时间</span>
           </span>
-          <span class="info-value" id="founding-time">2026 · loading...</span>
+          <span class="info-value" id="founding-time">2026-07-25 · loading...</span>
         </div>
         <div class="info-item">
           <span class="info-label">
@@ -138,13 +138,13 @@
 ;(function() {
   const el = document.getElementById('founding-time')
   if (!el) return
-  const founding = new Date(2026, 6, 6)
+  const founding = new Date(2026, 6, 25)
   const now = new Date()
   const diff = now - founding
   const days = Math.floor(diff / (1000 * 60 * 60 * 24))
 
-  function labelEn(n, unit) { return '2026 · ' + n + ' ' + unit + (n !== 1 ? 's' : '') }
-  function labelZh(n, unit) { return '2026 · 成立 ' + n + unit }
+  function labelEn(n, unit) { return '2026-07-25 · ' + n + ' ' + unit + (n !== 1 ? 's' : '') }
+  function labelZh(n, unit) { return '2026-07-25 · 成立 ' + n + unit }
 
   const isZh = document.body.classList.contains('lang-zh')
   if (days > 365) {
@@ -152,11 +152,11 @@
     el.textContent = isZh ? labelZh(years, '年') : labelEn(years, 'year')
   } else if (days > 30) {
     const months = Math.floor(days / 30)
-    el.textContent = isZh ? labelZh(months, '个月') : '2026 · ' + months + ' months'
+    el.textContent = isZh ? labelZh(months, '个月') : '2026-07-25 · ' + months + ' months'
   } else if (days > 0) {
     el.textContent = isZh ? labelZh(days, '天') : labelEn(days, 'day')
   } else {
-    el.textContent = isZh ? '2026 · 成立不到1天' : '2026 · < 1 day'
+    el.textContent = isZh ? '2026-07-25 · 成立不到1天' : '2026-07-25 · < 1 day'
   }
 })()
 </script>
